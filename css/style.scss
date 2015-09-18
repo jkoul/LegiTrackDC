@@ -4,7 +4,7 @@ $sans: 'Noto Sans', sans-serif;
 $serif: 'Tinos', serif;
 
 $colorPrimary: #9E091E;
-$colorSecondary: #fcfcfc;
+$colorSecondary: #f6f6f6;
 
 html {
   width: 100%;
@@ -14,7 +14,7 @@ html {
 body{
   min-height:100vh;
   margin: 0 auto;
-  background-color: $colorSecondary;
+  background-image: url('images/2000px-Flag_of_Washington,_D.C._icon.svg.png');
   text-align: center;
   font-family: $serif;
 }
@@ -36,10 +36,10 @@ h4 {
 }
 
 header {
-  background-color:#fcfcfc;
+  background-color: $colorSecondary;
   top: 0;
   position: fixed;
-  background-image: url('images/2000px-Flag_of_Washington,_D.C._icon.svg.png');
+  background-image: url('images/banner.png');
   background-size: contain;
   width: 100%;
   margin-bottom: 20px;
@@ -47,15 +47,23 @@ header {
   z-index: 1;
   .title {
     display: inline-flex;
-    width: 75%;
+    width: 95%;
     align-content: center;
     align-items: center;
     background: none;
-    margin-top: 90px;
-    margin-bottom: 0;
+    margin-top: 70px;
+    margin-bottom: 5em;
     height: 0;
-    & :first-child {
-      margin-right: 20%;
+    color: $colorPrimary;
+    text-shadow: 2px 2px black;
+    & h1 {
+      width: 50%;
+      text-align: left;
+      margin-left: 1em;
+    }
+    & h2 {
+      width: 50%;
+      text-align: right;
     }
   }
   & nav {
@@ -89,6 +97,9 @@ header {
           text-decoration: none;
           color: inherit;
         }
+        & .search {
+          font-size: 0.8em;
+        }
       }
       & li:hover {
         background: $colorPrimary;
@@ -106,7 +117,7 @@ header {
 }
 
 main {
-  margin-top: 250px;
+  margin-top: 270px;
 }
 
 
@@ -179,10 +190,15 @@ main {
 
 .votes, .votes-show {
   display: flex;
-  width: 10%;
+  flex-direction: column;
+  width: 20%;
+  height: 3em;
   font-size: 3em;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
+  align-self: center;
+  background: $colorSecondary;
+  border: 5px groove $colorPrimary;
   & .fa-thumbs-up {
     color: green;
     margin-right: 5px;
@@ -190,11 +206,21 @@ main {
   & .fa-thumbs-down {
     color: $colorPrimary;
     margin-right: 5px;
-    margin-left: 30px;
   }
 }
 
 .votes-show {
-  width: 100%;
+  width: 25%;
+  margin: 0 auto;
   justify-content: center;
+}
+
+.fa-thumbs-up:hover {
+  color: darken(green, 15%);
+  font-size: 1.2em;
+}
+
+.fa-thumbs-down:hover {
+  color: darken($colorPrimary, 15%);
+  font-size: 1.2em;
 }

@@ -6,7 +6,7 @@ html {
 body {
   min-height: 100vh;
   margin: 0 auto;
-  background-color: #fcfcfc;
+  background-image: url("images/2000px-Flag_of_Washington,_D.C._icon.svg.png");
   text-align: center;
   font-family: "Tinos", serif; }
 
@@ -23,10 +23,10 @@ h4 {
   font-style: italic; }
 
 header {
-  background-color: #fcfcfc;
+  background-color: #f6f6f6;
   top: 0;
   position: fixed;
-  background-image: url("images/2000px-Flag_of_Washington,_D.C._icon.svg.png");
+  background-image: url("images/banner.png");
   background-size: contain;
   width: 100%;
   margin-bottom: 20px;
@@ -34,15 +34,22 @@ header {
   z-index: 1; }
   header .title {
     display: inline-flex;
-    width: 75%;
+    width: 95%;
     align-content: center;
     align-items: center;
     background: none;
-    margin-top: 90px;
-    margin-bottom: 0;
-    height: 0; }
-    header .title :first-child {
-      margin-right: 20%; }
+    margin-top: 70px;
+    margin-bottom: 5em;
+    height: 0;
+    color: #9E091E;
+    text-shadow: 2px 2px black; }
+    header .title h1 {
+      width: 50%;
+      text-align: left;
+      margin-left: 1em; }
+    header .title h2 {
+      width: 50%;
+      text-align: right; }
   header nav {
     width: 100%;
     font-size: 1.5em;
@@ -71,22 +78,24 @@ header {
         header nav ul li a {
           text-decoration: none;
           color: inherit; }
+        header nav ul li .search {
+          font-size: 0.8em; }
       header nav ul li:hover {
         background: #9E091E;
-        color: #fcfcfc;
+        color: #f6f6f6;
         -webkit-transition: background, color .5s;
         transition: background, color .5s; }
         header nav ul li:hover ul {
           display: block; }
 
 main {
-  margin-top: 250px; }
+  margin-top: 270px; }
 
 #sponsor, #status, #committees {
   width: 70%;
   margin: 0 auto; }
   #sponsor :target, #status :target, #committees :target {
-    background: #c9c9c9; }
+    background: #c3c3c3; }
   #sponsor ul, #status ul, #committees ul {
     list-style: none; }
 
@@ -137,20 +146,33 @@ main {
 
 .votes, .votes-show {
   display: flex;
-  width: 10%;
+  flex-direction: column;
+  width: 20%;
+  height: 3em;
   font-size: 3em;
-  justify-content: left;
-  align-items: center; }
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  background: #f6f6f6;
+  border: 5px groove #9E091E; }
   .votes .fa-thumbs-up, .votes-show .fa-thumbs-up {
     color: green;
     margin-right: 5px; }
   .votes .fa-thumbs-down, .votes-show .fa-thumbs-down {
     color: #9E091E;
-    margin-right: 5px;
-    margin-left: 30px; }
+    margin-right: 5px; }
 
 .votes-show {
-  width: 100%;
+  width: 25%;
+  margin: 0 auto;
   justify-content: center; }
+
+.fa-thumbs-up:hover {
+  color: #003400;
+  font-size: 1.2em; }
+
+.fa-thumbs-down:hover {
+  color: #560510;
+  font-size: 1.2em; }
 
 /*# sourceMappingURL=style.css.map */
