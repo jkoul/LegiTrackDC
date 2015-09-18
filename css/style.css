@@ -99,6 +99,16 @@ main {
   #sponsor ul, #status ul, #committees ul {
     list-style: none; }
 
+.about, .how {
+  list-style: none;
+  font-size: 1.5em;
+  background: #ccc;
+  background: #bbb;
+  border: 5px groove #9E091E; }
+  .about h3 a, .how h3 a {
+    text-decoration: none;
+    color: #9E091E; }
+
 .bills {
   display: flex;
   margin: 0 auto; }

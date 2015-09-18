@@ -6,6 +6,15 @@ $serif: 'Tinos', serif;
 $colorPrimary: #9E091E;
 $colorSecondary: #f6f6f6;
 
+@mixin billDivStyle (){
+  background: #bbb;
+  border: 5px groove $colorPrimary;
+  & h3 a {
+    text-decoration: none;
+    color: $colorPrimary;
+  }
+}
+
 html {
   width: 100%;
   font-family: 'Lato', sans-serif;
@@ -133,6 +142,12 @@ main {
   }
 }
 
+.about, .how {
+  list-style: none;
+  font-size: 1.5em;
+  background: #ccc;
+  @include billDivStyle();
+}
 
 .bills {
   display: flex;
@@ -161,16 +176,6 @@ main {
         background: darken($colorPrimary, 15%);
       }
     }
-  }
-}
-
-
-@mixin billDivStyle (){
-  background: #bbb;
-  border: 5px groove $colorPrimary;
-  & h3 a {
-    text-decoration: none;
-    color: $colorPrimary;
   }
 }
 
