@@ -1,0 +1,156 @@
+@import url(https://fonts.googleapis.com/css?family=Tinos:400,400italic,700,700italic|Noto+Sans:400,700);
+html {
+  width: 100%;
+  font-family: 'Lato', sans-serif; }
+
+body {
+  min-height: 100vh;
+  margin: 0 auto;
+  background-color: #fcfcfc;
+  text-align: center;
+  font-family: "Tinos", serif; }
+
+h1, h2, h3 {
+  font-family: "Noto Sans", sans-serif; }
+
+h1 {
+  font-size: 3em; }
+
+h2 {
+  font-size: 1.8em; }
+
+h4 {
+  font-style: italic; }
+
+header {
+  background-color: #fcfcfc;
+  top: 0;
+  position: fixed;
+  background-image: url("images/2000px-Flag_of_Washington,_D.C._icon.svg.png");
+  background-size: contain;
+  width: 100%;
+  margin-bottom: 20px;
+  height: 250px;
+  z-index: 1; }
+  header .title {
+    display: inline-flex;
+    width: 75%;
+    align-content: center;
+    align-items: center;
+    background: none;
+    margin-top: 90px;
+    margin-bottom: 0;
+    height: 0; }
+    header .title :first-child {
+      margin-right: 20%; }
+  header nav {
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute; }
+    header nav ul {
+      list-style: none;
+      display: inline-flex;
+      align-content: space-around;
+      margin: 0 auto;
+      padding: 1em .5em; }
+      header nav ul li {
+        display: inline-block;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.8);
+        background-opacity: 0.4;
+        color: #ce0c27;
+        padding: 1em; }
+        header nav ul li .dropdown {
+          padding: 0;
+          position: absolute;
+          display: none;
+          background: rgba(0, 0, 0, 0.8); }
+          header nav ul li .dropdown li {
+            display: block; }
+        header nav ul li a {
+          text-decoration: none;
+          color: inherit; }
+      header nav ul li:hover {
+        background: #9E091E;
+        color: #fcfcfc;
+        -webkit-transition: background, color .5s;
+        transition: background, color .5s; }
+        header nav ul li:hover ul {
+          display: block; }
+
+main {
+  margin-top: 250px; }
+
+#sponsor, #status, #committees {
+  width: 70%;
+  margin: 0 auto; }
+  #sponsor :target, #status :target, #committees :target {
+    background: #c9c9c9; }
+  #sponsor ul, #status ul, #committees ul {
+    list-style: none; }
+
+.bills {
+  display: flex;
+  margin: 0 auto; }
+
+.filters {
+  width: 40%;
+  margin: 0 auto;
+  border: 5px solid #999;
+  padding-bottom: 1em;
+  background-color: #faacb7; }
+  .filters form label {
+    display: inline-flex;
+    padding: 0 1em;
+    align-items: center;
+    font-weight: bold; }
+    .filters form label input[type='checkbox'] {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 5px;
+      border: 2px solid #555; }
+      .filters form label input[type='checkbox']:checked {
+        background: #560510; }
+
+.bill {
+  width: 50%;
+  margin: 1em 5% 0 20%;
+  background: #bbb;
+  border: 5px groove #9E091E; }
+  .bill h3 a {
+    text-decoration: none;
+    color: #9E091E; }
+
+.billdetail {
+  width: 70%;
+  margin: 10% auto 0;
+  font-weight: 700;
+  font-size: 1.2em;
+  background: #bbb;
+  border: 5px groove #9E091E; }
+  .billdetail h3 a {
+    text-decoration: none;
+    color: #9E091E; }
+
+.votes, .votes-show {
+  display: flex;
+  width: 10%;
+  font-size: 3em;
+  justify-content: left;
+  align-items: center; }
+  .votes .fa-thumbs-up, .votes-show .fa-thumbs-up {
+    color: green;
+    margin-right: 5px; }
+  .votes .fa-thumbs-down, .votes-show .fa-thumbs-down {
+    color: #9E091E;
+    margin-right: 5px;
+    margin-left: 30px; }
+
+.votes-show {
+  width: 100%;
+  justify-content: center; }
+
+/*# sourceMappingURL=style.css.map */

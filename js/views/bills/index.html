@@ -1,0 +1,34 @@
+<h2>DC Council Legislation</h2>
+<div class="filters">
+  <h3>Filter Bills by:</h3>
+  <form name="sortForm" class="options">
+    <label>Committee
+      <input type="checkbox" value="committees">
+    </label>
+    <label>Sponsor
+      <input type="checkbox" value="sponsor">
+    </label>
+    <label>Status
+      <input type="checkbox" value="status">
+    </label>
+    <label>Popularity
+      <input type="checkbox" value="status">
+    </label>
+  </form>
+</div>
+<h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
+
+<div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query">
+  <div class="bill">
+    <h3><a ng-href="/#/bills/{{bill.id}}">{{bill.billNumber}} - {{bill.title}}</a></h3>
+    <p>Date Introduced: {{bill.introDate}}</p>
+    <p>Committee: {{bill.committeeReferral}}</p>
+    <p>Sponsor(s): {{bill.introducedBy}}</p>
+    <p>Co-Sponsors(s): {{bill.cosponsors}}</p>
+    <p>Status: {{bill.status}}</p>
+  </div>
+  <div class="votes">
+    <span><i class="fa fa-thumbs-up" ng-click="bill.upvote()"></i>{{bill.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down"></i>{{bill.score.opposing}}</span>
+  </div>
+</div>

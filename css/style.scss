@@ -1,0 +1,200 @@
+@import url(https://fonts.googleapis.com/css?family=Tinos:400,400italic,700,700italic|Noto+Sans:400,700);
+
+$sans: 'Noto Sans', sans-serif;
+$serif: 'Tinos', serif;
+
+$colorPrimary: #9E091E;
+$colorSecondary: #fcfcfc;
+
+html {
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  margin: 0 auto;
+  background-color: $colorSecondary;
+  text-align: center;
+  font-family: $serif;
+}
+
+h1, h2, h3 {
+  font-family: $sans;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+h2 {
+  font-size: 1.8em;
+}
+
+h4 {
+  font-style: italic;
+}
+
+header {
+  background-color:#fcfcfc;
+  top: 0;
+  position: fixed;
+  background-image: url('images/2000px-Flag_of_Washington,_D.C._icon.svg.png');
+  background-size: contain;
+  width: 100%;
+  margin-bottom: 20px;
+  height: 250px;
+  z-index: 1;
+  .title {
+    display: inline-flex;
+    width: 75%;
+    align-content: center;
+    align-items: center;
+    background: none;
+    margin-top: 90px;
+    margin-bottom: 0;
+    height: 0;
+    & :first-child {
+      margin-right: 20%;
+    }
+  }
+  & nav {
+    width: 100%;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute;
+    & ul {
+      list-style: none;
+      display: inline-flex;
+      align-content: space-around;
+      margin: 0 auto;
+      padding: 1em .5em;
+      & li {
+        display: inline-block;
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.8);
+        background-opacity: 0.4;
+        color: lighten($colorPrimary, 10%);
+        padding: 1em;
+        & .dropdown {
+          padding: 0;
+          position: absolute;
+          display: none;
+          background: rgba(0, 0, 0, 0.8);
+          & li {
+            display: block;
+          }
+        }
+        & a {
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+      & li:hover {
+        background: $colorPrimary;
+        color: $colorSecondary;
+        -webkit-transition: background, color .5s;
+          transition: background, color .5s;
+        & ul {
+          display: block;
+          & li {
+          }
+        }
+      }
+    }
+  }
+}
+
+main {
+  margin-top: 250px;
+}
+
+
+
+#sponsor, #status, #committees {
+  width: 70%;
+  margin: 0 auto;
+  & :target {
+    background: darken($colorSecondary, 20%);
+  }
+  & ul {
+    list-style: none;
+  }
+}
+
+
+.bills {
+  display: flex;
+  margin: 0 auto;
+}
+
+.filters {
+  width: 40%;
+  margin: 0 auto;
+  border: 5px solid #999;
+  padding-bottom: 1em;
+  background-color: lighten($colorPrimary, 50%);
+  & form label{
+    display: inline-flex;
+    padding: 0 1em;
+    align-items: center;
+    font-weight: bold;
+    & input[type='checkbox'] {
+     -webkit-appearance:none;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius:5px;
+      border:2px solid #555;
+      &:checked {
+        background: darken($colorPrimary, 15%);
+      }
+    }
+  }
+}
+
+
+@mixin billDivStyle (){
+  background: #bbb;
+  border: 5px groove $colorPrimary;
+  & h3 a {
+    text-decoration: none;
+    color: $colorPrimary;
+  }
+}
+
+.bill {
+  width: 50%;
+  margin: 1em 5% 0 20%;
+  @include billDivStyle();
+}
+
+.billdetail {
+  width: 70%;
+  margin: 10% auto 0;
+  font-weight: 700;
+  font-size: 1.2em;
+  @include billDivStyle();
+}
+
+.votes, .votes-show {
+  display: flex;
+  width: 10%;
+  font-size: 3em;
+  justify-content: left;
+  align-items: center;
+  & .fa-thumbs-up {
+    color: green;
+    margin-right: 5px;
+  }
+  & .fa-thumbs-down {
+    color: $colorPrimary;
+    margin-right: 5px;
+    margin-left: 30px;
+  }
+}
+
+.votes-show {
+  width: 100%;
+  justify-content: center;
+}

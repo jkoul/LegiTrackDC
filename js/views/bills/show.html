@@ -1,0 +1,15 @@
+<div>
+  <div class="billdetail">
+    <h2>{{showBillCtrl.bill.billNumber}} - {{showBillCtrl.bill.title}}</h2>
+    <h3>Bill Type: {{showBillCtrl.bill.billType}}</h3>
+    <p>Committee: {{showBillCtrl.bill.committeeReferral}}</p>
+    <p>Sponsor: {{showBillCtrl.bill.introducedBy}}</p>
+    <p>Co-Sponsors: {{showBillCtrl.bill.cosponsors}}</p>
+    <p>Introduced on: {{showBillCtrl.bill.introDate}}</p>
+    <p>Current Status: {{showBillCtrl.bill.status}}</p>
+  </div>
+  <div class="votes-show">
+    <span><i class="fa fa-thumbs-up"></i>{{showBillCtrl.bill.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down"></i>{{showBillCtrl.bill.score.opposing}}</span>
+  </div>
+</div>
