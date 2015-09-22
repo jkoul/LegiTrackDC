@@ -18,31 +18,31 @@
   <header>
     <div class="title">
       <h1>LegiTrack DC</h1>
-      <h2>DC's Legislative Portal Reimagined</h2>
+      <!-- <h2>DC's Legislative Portal Reimagined</h2> -->
     </div>
-    <nav>
-      <ul>
-        <li><a ng-href="#/">Home</a></li>
-        <li>Browse Legislation &#9660;
-          <ul class="dropdown">
-            <li><a ng-href="#/bills" href="">All Bills</a></li>
-            <li><a ng-href="#/#sponsor">By Sponsor</a></li>
-            <li><a ng-href="#/#status">By Status</a></li>
-            <li><a ng-href="#/#committees">By Committee</a></li>
-          </ul>
-        </li>
-        <li><a ng-href="#/about">About LegiTrackDC</a></li>
-        <!-- <li><a href="/about"></a></li> -->
-        <li>
-          <input type="text" class="search" placeholder="Search Legislation" name="search-term" ng-model="query">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </li>
-      </ul>
-    </nav>
   </header>
-  <main>
-    <div ng-view></div>
-    <!-- <div class="filters-detail">
+  <nav>
+    <ul>
+      <li><a ng-href="#/">Home</a></li>
+      <li>Browse Legislation &#9660;
+        <ul class="dropdown">
+          <li><a ng-href="#/bills" href="">All Bills</a></li>
+          <li><a ng-href="#/#sponsor">By Sponsor</a></li>
+          <li><a ng-href="#/#status">By Status</a></li>
+          <li><a ng-href="#/#committees">By Committee</a></li>
+        </ul>
+      </li>
+      <li><a ng-href="#/about">About LegiTrackDC</a></li>
+      <!-- <li><a href="/about"></a></li> -->
+      <li>
+        <input type="text" class="search" placeholder="Search Legislation" name="search-term" ng-model="query">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div ng-view id="pages"></div>
+    <div class="filters-detail">
       <div id="sponsor">
         <h2>Browse by Sponsor</h2>
         <ul>
@@ -77,7 +77,7 @@
             <li>Transportation &amp; the Environment</li>
           </ul>
       </div>
-    </div> -->
-</main>
+    </div>
+  </div>
 </body>
 </html>

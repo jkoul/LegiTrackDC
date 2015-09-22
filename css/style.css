@@ -1,12 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Tinos:400,400italic,700,700italic|Noto+Sans:400,700);
 html {
-  width: 100%;
-  font-family: 'Lato', sans-serif; }
+  width: 100%; }
 
 body {
   min-height: 100vh;
+  width: 100%;
   margin: 0 auto;
-  background-image: url("images/2000px-Flag_of_Washington,_D.C._icon.svg.png");
+  background-color: #f6f6f6;
   text-align: center;
   font-family: "Tinos", serif; }
 
@@ -14,7 +14,7 @@ h1, h2, h3 {
   font-family: "Noto Sans", sans-serif; }
 
 h1 {
-  font-size: 3em; }
+  font-size: 5em; }
 
 h2 {
   font-size: 1.8em; }
@@ -23,74 +23,100 @@ h4 {
   font-style: italic; }
 
 header {
-  background-color: #f6f6f6;
+  background-color: #555;
+  background-image: url("/css/images/banner.png");
+  background-size: cover;
   top: 0;
+  display: flex;
   position: fixed;
-  background-image: url("images/banner.png");
-  background-size: contain;
   width: 100%;
-  margin-bottom: 20px;
-  height: 250px;
+  height: 150px;
   z-index: 1; }
   header .title {
-    display: inline-flex;
-    width: 95%;
-    align-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
+    width: 50%;
     background: none;
-    margin-top: 70px;
-    margin-bottom: 5em;
-    height: 0;
     color: #9E091E;
-    text-shadow: 2px 2px black; }
+    text-shadow: 2px 2px black;
+    text-align: left;
+    margin: 0 2em; }
     header .title h1 {
-      width: 50%;
-      text-align: left;
-      margin-left: 1em; }
-    header .title h2 {
-      width: 50%;
-      text-align: right; }
-  header nav {
-    width: 100%;
-    font-size: 1.5em;
-    font-weight: bold;
-    position: absolute; }
-    header nav ul {
-      list-style: none;
-      display: inline-flex;
-      align-content: space-around;
-      margin: 0 auto;
-      padding: 1em .5em; }
-      header nav ul li {
-        display: inline-block;
-        position: relative;
-        background-color: rgba(0, 0, 0, 0.8);
-        background-opacity: 0.4;
-        color: #ce0c27;
-        padding: 1em; }
-        header nav ul li .dropdown {
-          padding: 0;
-          position: absolute;
-          display: none;
-          background: rgba(0, 0, 0, 0.8); }
-          header nav ul li .dropdown li {
-            display: block; }
-        header nav ul li a {
-          text-decoration: none;
-          color: inherit; }
-        header nav ul li .search {
-          font-size: 0.8em; }
-      header nav ul li:hover {
-        background: #9E091E;
-        color: #f6f6f6;
-        -webkit-transition: background, color .5s;
-        transition: background, color .5s; }
-        header nav ul li:hover ul {
-          display: block; }
+      height: auto;
+      line-height: auto; }
 
-main {
-  margin-top: 270px; }
+nav {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  margin-top: 150px;
+  font-size: 1.5em;
+  font-weight: bold;
+  position: fixed; }
+  nav ul {
+    list-style: none;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    margin: 0 auto; }
+    nav ul li {
+      display: inline-block;
+      position: relative;
+      background-opacity: 0.4;
+      color: #ce0c27;
+      padding: 1em; }
+      nav ul li .dropdown {
+        margin-top: 1em;
+        padding: 0;
+        position: absolute;
+        display: none;
+        background: rgba(0, 0, 0, 0.8); }
+        nav ul li .dropdown li {
+          display: block;
+          padding: 1em; }
+      nav ul li a {
+        text-decoration: none;
+        color: inherit; }
+      nav ul li .search {
+        font-size: 0.8em; }
+    nav ul li:hover {
+      background: #9E091E;
+      color: #f6f6f6;
+      -webkit-transition: background .8s, color .5s;
+      transition: background .8s, color .5s; }
+      nav ul li:hover ul {
+        display: block; }
+        nav ul li:hover ul li {
+          border-top: 1px solid #f6f6f6; }
 
+.container {
+  padding-top: 220px;
+  width: 100%; }
+
+#pages {
+  overflow: hidden; }
+
+@media screen and (max-width: 1100px) {
+  h1 {
+    font-size: 4em; }
+
+  nav {
+    font-size: 1.2em; } }
+@media screen and (max-width: 850px) {
+  h1 {
+    font-size: 3em; } }
+@media screen and (max-width: 650px) {
+  header {
+    display: none; }
+
+  nav {
+    display: block;
+    margin-top: 0; }
+    nav li {
+      width: 100%;
+      padding-left: 0;
+      padding-right: 0; } }
 #sponsor, #status, #committees {
   width: 70%;
   margin: 0 auto; }
