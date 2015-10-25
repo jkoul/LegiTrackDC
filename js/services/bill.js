@@ -1,5 +1,12 @@
 (function(){
-  var billServices = angular.module('billServices', ['ngResource', 'firebase'])
+  var billServices = angular.module('billServices', ['ngResource', 'firebase']);
+
+  // TODO : move to another filter
+  billServices.filter('cleanWhitespace', function(){
+    return function(value) {
+      return (!value) ? '' : value.replace(/ /g, '');
+    }
+  });
 
   billServices.factory('Bill', ['$resource', function($resource) {
     return $resource('http://openstates.org/api/v1/bills/?state=dc&search_window=term&fields=bill_id,title,sponsors,actions,action_dates&apikey=ef41e9a0f78e43b3b5491ff01138a442/', {});

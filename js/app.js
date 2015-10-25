@@ -6,6 +6,7 @@
     'ngResource',
     'billServices',
     'openlimsControllers',
-    'openlimsRouter'
+    'openlimsRouter',
+    'rt.encodeuri'
   ]);
 })()
