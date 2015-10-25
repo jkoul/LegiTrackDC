@@ -19,9 +19,6 @@ h1 {
 h2 {
   font-size: 1.8em; }
 
-h4 {
-  font-style: italic; }
-
 header {
   background-color: #555;
   background-image: url("./images/banner.png");
@@ -159,6 +156,11 @@ nav {
       border: 2px solid #555; }
       .filters form label input[type='checkbox']:checked {
         background: #560510; }
+      .filters form label input[type='checkbox']:focus {
+        outline: 0; }
+
+.load-note {
+  font-style: italic; }
 
 .bill {
   width: 50%;

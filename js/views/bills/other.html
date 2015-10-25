@@ -19,7 +19,7 @@
 <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
 <div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'bill_id'">
-  <div class="bill">
+  <div class="bill" ng-if="(bill.bill_id.indexOf('CA') == 0) || (bill.bill_id.indexOf('GBM') == 0) || (bill.bill_id.indexOf('REP') == 0) || (bill.bill_id.indexOf('HFA') == 0) || (bill.bill_id.indexOf('AU') == 0) || (bill.bill_id.indexOf('RC') == 0) || (bill.bill_id.indexOf('IG') == 0) || (bill.bill_id.indexOf('CFO') == 0)">
     <h3><a ng-href="/#/bills/{{bill.bill_id}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
     <h4>Type:
       <span ng-if="bill.bill_id.indexOf('B') == 0">Bill</span>

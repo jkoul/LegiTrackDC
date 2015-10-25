@@ -40,10 +40,6 @@ h2 {
   font-size: 1.8em;
 }
 
-h4 {
-  font-style: italic;
-}
-
 header {
   background-color: #555;
   background-image: url('./images/banner.png');
@@ -209,8 +205,15 @@ nav {
       &:checked {
         background: darken($colorPrimary, 15%);
       }
+      &:focus {
+        outline: 0;
+      }
     }
   }
+}
+
+.load-note {
+  font-style: italic;
 }
 
 .bill {

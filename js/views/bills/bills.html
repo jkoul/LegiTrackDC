@@ -17,21 +17,12 @@
   </form>
 </div>
 <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
-<div class="results">Number of results: {{billsCtrl.count()}}</div>
+
+<!-- <div class="results">Number of results: {{billsCtrl.count()}}</div> -->
 <div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'bill_id'">
-  <div class="bill">
+  <div class="bill" ng-if="bill.bill_id.indexOf('B') == 0">
     <h3><a ng-href="/#/bills/{{bill.bill_id}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
-    <h4>Type:
-      <span ng-if="bill.bill_id.indexOf('B') == 0">Bill</span>
-      <span ng-if="bill.bill_id.indexOf('PR') == 0">Resolution</span>
-      <span ng-if="bill.bill_id.indexOf('CER') == 0">Ceremonial Resolution</span>
-      <span ng-if="bill.bill_id.indexOf('CA') == 0">Contract</span>
-      <span ng-if="bill.bill_id.indexOf('GBM') == 0">Grant Budget Modification</span>
-      <span ng-if="bill.bill_id.indexOf('REP') == 0">Budget Reallocation</span>
-      <span ng-if="bill.bill_id.indexOf('HFA') == 0">Housing Finance Agency Bond Issuance</span>
-      <span ng-if="bill.bill_id.indexOf('AU') == 0">Audit Report</span>
-      <span ng-if="(bill.bill_id.indexOf('RC') == 0) || (bill.bill_id.indexOf('IG') == 0) || (bill.bill_id.indexOf('CFO') == 0)">Other Report</span>
-    </h4>
+    <h4>Type: Bill</h4>
     <span ng-if="bill.actions != ''">
       <p>Date Introduced: {{bill.action_dates.first}}</p>
       <p>Latest Action: {{bill.action_dates.last}}</p>
@@ -46,7 +37,7 @@
       <p>Co-Sponsor: {{sponsor.name}}</p>
     </span>
   </div>
-  <div class="votes">
+  <div class="votes" ng-if="bill.bill_id.indexOf('B') == 0">
     <span><i class="fa fa-thumbs-up" ng-click="bill.upvote()"></i>{{bill.score.supporting}}</span>
     <span><i class="fa fa-thumbs-down" ng-click="bill.downvote()"></i>{{bill.score.opposing}}</span>
   </div>
