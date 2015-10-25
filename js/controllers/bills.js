@@ -1,25 +1,44 @@
 (function() {
   app = angular.module("openlimsControllers",['ngRoute']);
-  app.controller("billsController", ['Bill', function(Bill){
+  app.controller("billsController", ['Bill', 'Vote', function(Bill, Vote){
     this.bills = Bill.query();
     this.bills.$promise.then(function($response){
       $('.load-note').hide();
-      // $.each(response, function(response){
-      //   response.score = {
-      //     supporting: 0,
-      //     opposing: 0
-      //   }
-      //   console.log(response.score)
-      // })
-    })
+      angular.forEach($response, function(b){
+        // Sets the score on the bill and registers a call back
+         b.action_dates.first = new Date(b.action_dates.first);
+         b.action_dates.last = new Date(b.action_dates.last);
+         Vote.get(b);
+      });
+    });
     this.count = function(){
       return this.bills.length;
     };
 
-    this.upvote = function(){
-      console.log("active");
-      var score = this.score;
-      score.supporting += 1;
+    // 1. Switch to right downvote
+
+    this.upvote = function(bill){
+      if(!bill.upVote) {
+        if(bill.downVote) {
+          bill.score.opposing--;
+        }
+        bill.score.supporting++;
+        Vote.save(bill);
+        bill.downVote = false;
+        bill.upVote = true;
+      }
+    }
+
+    this.downvote = function(bill) {
+      if(!bill.downVote){
+        if(bill.upVote) {
+          bill.score.supporting--;
+        }
+        bill.score.opposing++;
+        Vote.save(bill);
+        bill.downVote = true;
+        bill.upVote = false;
+      }
     }
   }]);
 
