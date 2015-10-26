@@ -18,9 +18,9 @@
 </div>
 <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
-<div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'bill_id'">
+<div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'-action_dates.last'">
   <div class="bill">
-    <h3><a ng-href="/#/bills/{{bill.bill_id}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id | cleanWhitespace}}" target="_blank">{{bill.bill_id}} - {{bill.title}}</a></h3>
     <h4>Type:
       <span ng-if="bill.bill_id.indexOf('B') == 0">Bill</span>
       <span ng-if="bill.bill_id.indexOf('PR') == 0">Resolution</span>
@@ -33,21 +33,23 @@
       <span ng-if="(bill.bill_id.indexOf('RC') == 0) || (bill.bill_id.indexOf('IG') == 0) || (bill.bill_id.indexOf('CFO') == 0)">Other Report</span>
     </h4>
     <span ng-if="bill.actions != ''">
-      <p>Date Introduced: {{bill.action_dates.first}}</p>
-      <p>Latest Action: {{bill.action_dates.last}}</p>
+      <p>Date Introduced: {{bill.action_dates.first | date:"MM/dd/yyyy"}}</p>
+      <p>Latest Action: {{bill.action_dates.last | date:"MM/dd/yyyy"}}</p>
     </span>
     <span ng-repeat="update in bill.actions | filter:{$: 'committee'}">
       <p>Committee: {{update.related_entities[0].name}}</p>
     </span>
-    <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'primary'}">
-      <p>Sponsor: {{sponsor.name}}</p>
-    </span>
-    <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'cosponsor'}">
-      <p>Co-Sponsor: {{sponsor.name}}</p>
-    </span>
+    <div>
+      <span>Sponsor(s):</span>
+      <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+    </div>
+    <div>
+      <span>Co-Sponsor(s):</span>
+      <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+    </div>
   </div>
   <div class="votes">
-    <span><i class="fa fa-thumbs-up" ng-click="bill.upvote()"></i>{{bill.score.supporting}}</span>
-    <span><i class="fa fa-thumbs-down" ng-click="bill.downvote()"></i>{{bill.score.opposing}}</span>
+    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.opposing}}</span>
   </div>
 </div>

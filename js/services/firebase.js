@@ -19,12 +19,13 @@
      var legRef = new Firebase(firebaseUrl + "/legislation");
      var legislation = $firebaseArray(legRef);
      var billDetail = {
-       query: function(){return legislation;},
-       get: function(bill) {
-         var found = legislation.find(function())
+      query: function(){return legislation;},
+      get: function(bill) {
+        var found = legislation.find(function() {
           return bill.$id === bill.bill_id;
-       }
-     }
+        })
+      }
+    }
 
      var votesRef = new Firebase(firebaseUrl + "/votes");
      var billVotes = $firebaseArray(votesRef);
