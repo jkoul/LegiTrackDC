@@ -10,7 +10,8 @@
 
   billServices.factory('Bill', ['$resource', function($resource) {
     return $resource('http://openstates.org/api/v1/bills/?state=dc&search_window=term&fields=bill_id,title,sponsors,actions,action_dates&apikey=ef41e9a0f78e43b3b5491ff01138a442/', {});
-  }]).done(function(){
+  }]);
+
     var firebaseUrl = "https://legitrack.firebaseio.com";
     var connectedRef = new Firebase(firebaseUrl + "/.info/connected");
      connectedRef.on("value", function(snapshot) {
@@ -48,5 +49,4 @@
         }
       }
     }
-  })
 })()
