@@ -46,8 +46,8 @@
         },
         save: function(bill){
           var score = {
-            supporting: 0,
-            opposing: 0
+            supporting: bill.score.supporting,
+            opposing: bill.score.opposing
           };
           votesRef.child(bill.bill_id).set(score);
         }
