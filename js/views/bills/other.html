@@ -20,7 +20,7 @@
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
 <div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'b-action_dates.last'">
   <div class="bill" ng-if="(bill.bill_id.indexOf('CA') == 0) || (bill.bill_id.indexOf('GBM') == 0) || (bill.bill_id.indexOf('REP') == 0) || (bill.bill_id.indexOf('HFA') == 0) || (bill.bill_id.indexOf('AU') == 0) || (bill.bill_id.indexOf('RC') == 0) || (bill.bill_id.indexOf('IG') == 0) || (bill.bill_id.indexOf('CFO') == 0)">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id | cleanWhitespace}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
     <h4>Type:
       <span ng-if="bill.bill_id.indexOf('B') == 0">Bill</span>
       <span ng-if="bill.bill_id.indexOf('PR') == 0">Resolution</span>

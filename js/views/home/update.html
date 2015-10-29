@@ -1,0 +1,14 @@
+<div ng-repeat='item in updateBills.billDetail track by $index'>
+  <div>
+    <p>{{item.Legislation[0].Title}}: {{item.Legislation[0].ShortTitle}}</p>
+    <p>Introduction Date: {{item.Legislation[0].IntroductionDate | date:"MM/dd/yyyy"}}</p>
+    <p>Last Update: {{item.Legislation[0].Modified | date:"MM/dd/yyyy"}}</p>
+    <p>Status: {{item.Legislation[0].LegislationStatus}}</p>
+    <!-- <p>Sponsor(s): {{item.Legislation[0].Introducer[0].Name}}</p>
+    <p>Co-Sponsor(s): {{item.Legislation[0].CoSponsor[0].Name}}</p> -->
+    <p>Sponsor(s): <span ng-repeat='cm in item.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p>Co-Sponsor(s): <span ng-repeat='cm in item.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p>Committee: <span ng-repeat='cm in item.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p><a href="http://lims.dccouncil.us/Download/{{item.Legislation[0].AttachmentPath[0].RelativePath}}/{{item.Legislation[0].AttachmentPath[0].Name}}" target="_blank">View Bill</a></p>
+  </div>
+</div>

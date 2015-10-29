@@ -12,3 +12,5 @@
 //     }
 //   });
 // })
+
+  <script src="js/controllers/update.js"></script>

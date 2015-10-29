@@ -21,7 +21,7 @@
 <!-- <div class="results">Number of results: {{billsCtrl.count()}}</div> -->
 <div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'-action_dates.last'">
   <div class="bill" ng-if="bill.bill_id.indexOf('B') == 0">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id | cleanWhitespace}}" target="_blank">{{bill.bill_id}} - {{bill.title}}</a></h3>
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id}}" target="_blank">{{bill.bill_id}} - {{bill.title}}</a></h3>
     <h4>Type: Bill</h4>
     <span ng-if="bill.actions != ''">
       <p>Date Introduced: {{bill.action_dates.first | date:"MM/dd/yyyy"}}</p>

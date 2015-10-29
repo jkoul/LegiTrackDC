@@ -1,16 +1,21 @@
 (function() {
   app = angular.module("openlimsControllers",['ngRoute']);
   app.controller("billsController", ['Bill', 'Vote', function(Bill, Vote){
+
     this.bills = Bill.query();
     this.bills.$promise.then(function($response){
       $('.load-note').hide();
       angular.forEach($response, function(b){
+      // Strips spaces in bills
+        b.bill_id = b.bill_id.replace(/\s/g, '');
       // Sets the score on the bill and registers a call back
         b.action_dates.first = new Date(b.action_dates.first);
         b.action_dates.last = new Date(b.action_dates.last);
         Vote.get(b);
       });
+      return $response;
     });
+
     this.count = function(){
       return this.bills.length;
     };

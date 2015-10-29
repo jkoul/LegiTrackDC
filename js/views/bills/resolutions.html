@@ -21,7 +21,7 @@
 <!-- <div class="results">Number of results: {{billsCtrl.count()}}</div> -->
 <div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'-action_dates.last'">
   <div class="bill" ng-if="(bill.bill_id.indexOf('PR') == 0) || (bill.bill_id.indexOf('CER') == 0)">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id | cleanWhitespace}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id}}">{{bill.bill_id}} - {{bill.title}}</a></h3>
     <h4>Type:
       <span ng-if="bill.bill_id.indexOf('PR') == 0">Resolution</span>
       <span ng-if="bill.bill_id.indexOf('CER') == 0">Ceremonial Resolution</span>

@@ -17,15 +17,20 @@
       controllerAs: 'billsCtrl',
       templateUrl: 'js/views/bills/resolutions.html'
     }).
-    when("/resolutions", {
+    when("/other", {
       controller: 'billsController',
       controllerAs: 'billsCtrl',
-      templateUrl: 'js/views/bills/resolutions.html'
+      templateUrl: 'js/views/bills/other.html'
     }).
     when("/bills/:bill_id", {
       templateUrl: 'js/views/bills/show.html',
       controller: 'showBillController',
       controllerAs: 'showBillCtrl'
+    }).
+    when("/updatefirebase", {
+      templateUrl: 'js/views/home/update.html',
+      controller: 'updateBillDataToFirebase',
+      controllerAs: 'updateBills'
     }).
     otherwise({
       redirectTo: "/bills"
