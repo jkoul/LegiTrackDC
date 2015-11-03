@@ -14,7 +14,7 @@ h1, h2, h3 {
   font-family: "Noto Sans", sans-serif; }
 
 h1 {
-  font-size: 5em; }
+  font-size: 5em !important; }
 
 h2 {
   font-size: 1.8em; }
@@ -132,42 +132,41 @@ nav {
     text-decoration: none;
     color: #9E091E; }
 
-.bills {
+.legislation {
   display: flex;
   margin: 0 auto; }
 
 .filters {
-  width: 40%;
+  width: 80%;
   margin: 0 auto;
   border: 5px solid #999;
-  padding-bottom: 1em;
-  background-color: #faacb7; }
-  .filters form label {
+  padding-bottom: 1em; }
+  .filters label {
     display: inline-flex;
     padding: 0 1em;
     align-items: center;
     font-weight: bold; }
-    .filters form label input[type='checkbox'] {
+    .filters label input[type='checkbox'] {
       -webkit-appearance: none;
       width: 20px;
       height: 20px;
       background: white;
       border-radius: 5px;
       border: 2px solid #555; }
-      .filters form label input[type='checkbox']:checked {
+      .filters label input[type='checkbox']:checked {
         background: #560510; }
-      .filters form label input[type='checkbox']:focus {
+      .filters label input[type='checkbox']:focus {
         outline: 0; }
 
 .load-note {
   font-style: italic; }
 
-.bill {
+.leg-item {
   width: 50%;
   margin: 1em 5% 0 20%;
   background: #bbb;
   border: 5px groove #9E091E; }
-  .bill h3 a {
+  .leg-item h3 a {
     text-decoration: none;
     color: #9E091E; }
 

@@ -37,8 +37,8 @@
       },
       save: function(bill){
         var score = {
-          supporting: bill.score.supporting,
-          opposing: bill.score.opposing
+          opposing: bill.score.opposing,
+          supporting: bill.score.supporting
         };
         votesRef.child(bill.bill_id).set(score);
       }
@@ -46,7 +46,7 @@
     return billVote;
   }
 
-  billServices.factory('Legislation'['$firebaseObject','$firebaseArray', '$routeParams', runUpdate]);
+  billServices.factory('Legislation', ['$firebaseObject','$firebaseArray', '$routeParams', runUpdate]);
   function runUpdate($firebaseObject, $firebaseArray, $routeParams) {
     var legRef = new Firebase(firebaseUrl + "/legislation");
     var legDetails = $firebaseArray(legRef);
@@ -54,14 +54,13 @@
       query: function() {return legDetails;},
       get: function(bill) {
         var found = legDetails.find(function(leg) {
-          return leg.$id === bill.bill_id;
+          return leg.$id === bill.Legislation[0].Title;
         });
         if(!found) {
-          legRef.child(bill.bill_id).set({
-            // set parameters for each bill based on LIMS data
-          });
-        }
-        legRef.child(bill.bill_id).on('value', function(snapshot) {
+          found = bill;
+          legRef.child(bill.Legislation[0].Title).set(found);
+        };
+        legRef.child(bill.Legislation[0].Title).on('value', function(snapshot) {
           bill.detail = snapshot.val();
         })
         bill.detail = found;
@@ -70,7 +69,7 @@
         var detail = {
           // set parameters for each bill based on LIMS data
         }
-        legRef.child(bill.bill_id).set(detail)
+        legRef.child(bill.Legislation[0].Title).set(bill)
       }
     }
     return legDetail;

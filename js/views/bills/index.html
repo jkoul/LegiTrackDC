@@ -1,55 +1,70 @@
 <h2>DC Council Legislation</h2>
 <div class="filters">
-  <h3>Filter Bills by:</h3>
-  <form name="sortForm" class="options">
-    <label>Committee
-      <input type="checkbox" value="committees">
-    </label>
-    <label>Sponsor
-      <input type="checkbox" value="sponsor">
-    </label>
-    <label>Status
-      <input type="checkbox" value="status">
-    </label>
-    <label>Popularity
-      <input type="checkbox" value="status">
-    </label>
-  </form>
+  <button type="button" class="btn btn-danger btn-lg">Filter Legislation</button>
+  <div class="filters-boxes">
+    <div class="filters-type">
+      <h4>Legislation Type</h4>
+      <label>Bills
+        <input type="checkbox" id ="committeeschecked" value="committees" checked>
+      </label>
+      <label>Resolutions
+        <input type="checkbox" checked>
+      </label>
+      <label>Contracts
+        <input type="checkbox" checked>
+      </label>
+      <label>Budget Modifications
+        <input type="checkbox" checked>
+      </label>
+      <label>Reports
+        <input type="checkbox" checked>
+      </label>
+    </div>
+  </div>
 </div>
 <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
-<div class="bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'-action_dates.last'">
-  <div class="bill">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.bill_id}}" target="_blank">{{bill.bill_id}} - {{bill.title}}</a></h3>
-    <h4>Type:
-      <span ng-if="bill.bill_id.indexOf('B') == 0">Bill</span>
-      <span ng-if="bill.bill_id.indexOf('PR') == 0">Resolution</span>
-      <span ng-if="bill.bill_id.indexOf('CER') == 0">Ceremonial Resolution</span>
-      <span ng-if="bill.bill_id.indexOf('CA') == 0">Contract</span>
-      <span ng-if="bill.bill_id.indexOf('GBM') == 0">Grant Budget Modification</span>
-      <span ng-if="bill.bill_id.indexOf('REP') == 0">Budget Reallocation</span>
-      <span ng-if="bill.bill_id.indexOf('HFA') == 0">Housing Finance Agency Bond Issuance</span>
-      <span ng-if="bill.bill_id.indexOf('AU') == 0">Audit Report</span>
-      <span ng-if="(bill.bill_id.indexOf('RC') == 0) || (bill.bill_id.indexOf('IG') == 0) || (bill.bill_id.indexOf('CFO') == 0)">Other Report</span>
-    </h4>
-    <span ng-if="bill.actions != ''">
-      <p>Date Introduced: {{bill.action_dates.first | date:"MM/dd/yyyy"}}</p>
-      <p>Latest Action: {{bill.action_dates.last | date:"MM/dd/yyyy"}}</p>
+
+<div class="legislation" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'Legislation[0].Title'">
+  <div class="leg-item bill">
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.Legislation[0].Title}}" target="_blank">{{bill.Legislation[0].Title}}: {{bill.Legislation[0].ShortTitle}}</a></h3>
+    <h4>Type: Bill</h4>
+    <p>Introduction Date: {{bill.Legislation[0].IntroductionDate | date:"longDate"}}</p>
+    <p>Last Update: {{bill.Legislation[0].Modified | date:"longDate"}}</p>
+    <p>Status: {{bill.Legislation[0].LegislationStatus}}</p>
+    <p>Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p>Committee: <span ng-repeat='cm in bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+    <p><a href="http://lims.dccouncil.us/Download/{{bill.Legislation[0].AttachmentPath[0].RelativePath}}/{{bill.Legislation[0].AttachmentPath[0].Name}}" target="_blank">View Bill</a></p>
+  </div>
+  <div class="votes">
+    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(bill)"></i>{{bill.score.opposing}}</span>
+  </div>
+</div>
+
+<div class="legislation" ng-repeat="leg in billsCtrl.all | filter:query | orderBy: 'leg.bill_id'">
+  <div class="leg-item leg" ng-if="leg.bill_id.indexOf('B') !== 0">
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{leg.bill_id}}">{{leg.bill_id}} - {{leg.title}}</a></h3>
+    <h4>Type: {{leg.typeDetail}}</h4>
+    <span ng-if="leg.actions != ''">
+      <p>Date Introduced: {{leg.action_dates.first | date:"MM/dd/yyyy"}}</p>
+      <p>Latest Action: {{leg.action_dates.last | date:"MM/dd/yyyy"}}</p>
     </span>
-    <span ng-repeat="update in bill.actions | filter:{$: 'committee'}">
+    <span ng-repeat="update in leg.actions | filter:{$: 'committee'}">
       <p>Committee: {{update.related_entities[0].name}}</p>
     </span>
     <div>
       <span>Sponsor(s):</span>
-      <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
     </div>
     <div>
       <span>Co-Sponsor(s):</span>
-      <span ng-repeat="sponsor in bill.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
     </div>
   </div>
-  <div class="votes">
-    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
-    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.opposing}}</span>
+  <div class="votes" ng-if="leg.bill_id.indexOf('B') !== 0">
+    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(leg)"></i>{{leg.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(leg)"></i>{{leg.score.opposing}}</span>
   </div>
 </div>

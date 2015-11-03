@@ -7,6 +7,7 @@
     'billServices',
     'openlimsControllers',
     'openlimsRouter',
-    'rt.encodeuri'
+    'rt.encodeuri',
+    'ui.bootstrap'
   ]);
 })()

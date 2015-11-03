@@ -1,3 +1,4 @@
+
 @import url(https://fonts.googleapis.com/css?family=Tinos:400,400italic,700,700italic|Noto+Sans:400,700);
 
 $sans: 'Noto Sans', sans-serif;
@@ -33,7 +34,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 5em;
+  font-size: 5em !important;
 }
 
 h2 {
@@ -179,18 +180,26 @@ nav {
   @include billDivStyle();
 }
 
-.bills {
+.legislation {
   display: flex;
   margin: 0 auto;
 }
 
 .filters {
-  width: 40%;
+  width: 80%;
   margin: 0 auto;
   border: 5px solid #999;
   padding-bottom: 1em;
-  background-color: lighten($colorPrimary, 50%);
-  & form label{
+  // background-color: lighten($colorPrimary, 50%);
+  // & .filters-boxes {
+  //   max-height: 120px;
+  //   transition: .8s;
+  //   overflow: hidden;
+  //   & .hidden {
+  //     max-height: 0;
+  //   }
+  // }
+  & label{
     display: inline-flex;
     padding: 0 1em;
     align-items: center;
@@ -216,7 +225,7 @@ nav {
   font-style: italic;
 }
 
-.bill {
+.leg-item {
   width: 50%;
   margin: 1em 5% 0 20%;
   @include billDivStyle();
