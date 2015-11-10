@@ -1,70 +1,246 @@
 <h2>DC Council Legislation</h2>
 <div class="filters">
-  <button type="button" class="btn btn-danger btn-lg">Filter Legislation</button>
-  <div class="filters-boxes">
-    <div class="filters-type">
-      <h4>Legislation Type</h4>
-      <label>Bills
-        <input type="checkbox" id ="committeeschecked" value="committees" checked>
-      </label>
-      <label>Resolutions
-        <input type="checkbox" checked>
-      </label>
-      <label>Contracts
-        <input type="checkbox" checked>
-      </label>
-      <label>Budget Modifications
-        <input type="checkbox" checked>
-      </label>
-      <label>Reports
-        <input type="checkbox" checked>
-      </label>
-    </div>
+  <button type="button" class="btn btn-danger btn-lg" ng-click="billsCtrl.toggleFilters()">
+    <span ng-if="!billsCtrl.filtersOpen">Filter Legislation</span>
+    <span ng-if="billsCtrl.filtersOpen">Turn Off Filters</span>
+  </button>
+  <div class="filters-accordion animate-show ng-hide">
+    <uib-accordion close-others="false">
+      <uib-accordion-group heading="Legislation Type">
+          <div class="btn-group">
+            <span ng-repeat="filter in billsCtrl.filterFields | filter: type='Legislation Type'">
+              <label class="btn btn-primary" ng-model="filter.checked" uib-btn-checkbox>{{filter.name}}</label>
+            </span>
+          </div>
+          <!-- <div class="chk-filter">
+            <label>
+            <input type="checkbox" ng-model="resolutionschecked" name="resolutions" ng-init="resolutionschecked=true">
+            <span>Resolutions</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="contractschecked" name="contracts" ng-init="contractschecked=true">
+              <span>Contracts</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="budgetchecked" name="budget" ng-init="budgetchecked=true">
+              <span>Budget Modifications</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="reportschecked" name="reports" ng-init="reportschecked=true">
+              <span>Reports</span>
+            </label>
+          </div> -->
+      </uib-accordion-group>
+      <uib-accordion-group heading="Legislation Status">
+        <div class="boxes">
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="reviewchecked" name="councilreview" ng-init="reviewchecked=true">
+              <span>Under Council Review</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="enactedchecked" name="enacted" ng-init="enactedchecked=true">
+              <span>Enacted</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="otherchecked" name="otherstatus" ng-init="otherchecked=true">
+              <span>Other</span>
+            </label>
+          </div>
+        </div>
+      </uib-accordion-group>
+      <uib-accordion-group heading="Committee Referral">
+        <div class="boxes">
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="wholechecked" name="whole" ng-init="wholechecked=true">
+              <span>Committee of the Whole</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="bcrachecked" name="bcra" ng-init="bcrachecked=true">
+              <span>Business, Consumer &amp; Regulatory Affairs</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="educationchecked" name="education" ng-init="educationchecked=true">
+              <span>Education</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="financechecked" name="finance" ng-init="financechecked=true">
+              <span>Finance &amp; Revenue</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="hhschecked" name="hhs" ng-init="hhschecked=true">
+              <span>Health &amp; Human Services</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="housingchecked" name="housing" ng-init="housingchecked=true">
+              <span>Housing &amp; Community Development</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="judiciarychecked" name="judiciary" ng-init="judiciarychecked=true">
+              <span>Judiciary</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="transpochecked" name="transpo" ng-init="transpochecked=true">
+              <span>Transportation &amp; Environment</span>
+            </label>
+          </div>
+        </div>
+      </uib-accordion-group>
+      <uib-accordion-group heading="Sponsor">
+        <div class="boxes">
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsoralexanderchecked" name="Yvette Alexander" ng-init="sponsoralexanderchecked=true">
+              <span>Yvette Alexander</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorallenchecked" name="Charles Allen" ng-init="sponsorallenchecked=true">
+              <span>Charles Allen</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorbondschecked" name="Anita Bonds" ng-init="sponsorbondschecked=true">
+              <span>Anita Bonds</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorchehchecked" name="Mary Cheh" ng-init="sponsorchehchecked=true">
+              <span>Mary Cheh</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorevanschecked" name="Jack Evans" ng-init="sponsorevanschecked=true">
+              <span>Jack Evans</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorgrossochecked" name="David Grosso" ng-init="sponsorgrossochecked=true">
+              <span>David Grosso</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsormaychecked" name="LaRuby May" ng-init="sponsormaychecked=true">
+              <span>LaRuby May</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsormcduffiechecked" name="Kenyan McDuffie" ng-init="sponsormcduffiechecked=true">
+              <span>Kenyan McDuffie</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsormendelsonchecked" name="Phil Mendelson" ng-init="sponsormendelsonchecked=true">
+              <span>Phil Mendelson</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsornadeauchecked" name="Brianne Nadeau" ng-init="sponsornadeauchecked=true">
+              <span>Brianne Nadeau</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsororangechecked" name="Vincent Orange" ng-init="sponsororangechecked=true">
+              <span>Vincent Orange</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsorsilvermanchecked" name="Elissa Silverman" ng-init="sponsorsilvermanchecked=true">
+              <span>Elissa Silverman</span>
+            </label>
+          </div>
+          <div class="chk-filter">
+            <label>
+              <input type="checkbox" ng-model="sponsortoddchecked" name="Brandon Todd" ng-init="sponsortoddchecked=true">
+              <span>Brandon Todd</span>
+            </label>
+          </div>
+        </div>
+      </uib-accordion-group>
+    </uib-accordion>
   </div>
 </div>
+
 <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
 
-<div class="legislation" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'Legislation[0].Title'">
-  <div class="leg-item bill">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{bill.Legislation[0].Title}}" target="_blank">{{bill.Legislation[0].Title}}: {{bill.Legislation[0].ShortTitle}}</a></h3>
-    <h4>Type: Bill</h4>
-    <p>Introduction Date: {{bill.Legislation[0].IntroductionDate | date:"longDate"}}</p>
-    <p>Last Update: {{bill.Legislation[0].Modified | date:"longDate"}}</p>
-    <p>Status: {{bill.Legislation[0].LegislationStatus}}</p>
-    <p>Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-    <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-    <p>Committee: <span ng-repeat='cm in bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-    <p><a href="http://lims.dccouncil.us/Download/{{bill.Legislation[0].AttachmentPath[0].RelativePath}}/{{bill.Legislation[0].AttachmentPath[0].Name}}" target="_blank">View Bill</a></p>
+<div class="legislation-all">
+  <div class="legislation legislation-bills" ng-repeat="bill in billsCtrl.bills | filter:query | orderBy:'Legislation[0].Title'">
+    <div class="leg-item bill">
+      <h3><a ng-href="/#/bills/{{bill.Legislation[0].Title}}">{{bill.Legislation[0].Title}}: {{bill.Legislation[0].ShortTitle}}</a></h3>
+      <h4>Type: Bill</h4>
+      <p>Introduction Date: {{bill.Legislation[0].IntroductionDate | date:"longDate"}}</p>
+      <p>Last Update: {{bill.Legislation[0].Modified | date:"longDate"}}</p>
+      <p>Status: {{bill.Legislation[0].LegislationStatus}}</p>
+      <!-- <p>Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+      <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+      <p>Committee: <span ng-repeat='cm in bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p> -->
+    </div>
+    <div class="votes">
+      <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
+      <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(bill)"></i>{{bill.score.opposing}}</span>
+    </div>
   </div>
-  <div class="votes">
-    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
-    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(bill)"></i>{{bill.score.opposing}}</span>
-  </div>
-</div>
 
-<div class="legislation" ng-repeat="leg in billsCtrl.all | filter:query | orderBy: 'leg.bill_id'">
-  <div class="leg-item leg" ng-if="leg.bill_id.indexOf('B') !== 0">
-    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{leg.bill_id}}">{{leg.bill_id}} - {{leg.title}}</a></h3>
-    <h4>Type: {{leg.typeDetail}}</h4>
-    <span ng-if="leg.actions != ''">
-      <p>Date Introduced: {{leg.action_dates.first | date:"MM/dd/yyyy"}}</p>
-      <p>Latest Action: {{leg.action_dates.last | date:"MM/dd/yyyy"}}</p>
-    </span>
-    <span ng-repeat="update in leg.actions | filter:{$: 'committee'}">
-      <p>Committee: {{update.related_entities[0].name}}</p>
-    </span>
-    <div>
-      <span>Sponsor(s):</span>
-      <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+  <div class="legislation legislation-other" ng-repeat="leg in billsCtrl.all | filter:filterFunction | orderBy: 'leg.bill_id'">
+    <div class="leg-item leg" ng-if="leg.bill_id.indexOf('B') !== 0">
+      <h3><a ng-href="/#/bills/{{leg.bill_id}}">{{leg.bill_id}} - {{leg.title}}</a></h3>
+      <h4>Type: {{leg.typeDetail}}</h4>
+      <span ng-if="leg.actions != ''">
+        <p>Date Introduced: {{leg.action_dates.first | date:"MM/dd/yyyy"}}</p>
+        <p>Latest Action: {{leg.action_dates.last | date:"MM/dd/yyyy"}}</p>
+      </span>
+      <!-- <div>
+        <span>Sponsor(s):</span>
+        <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      </div>
+      <div>
+        <span>Co-Sponsor(s):</span>
+        <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      </div> -->
+      <!-- <span ng-repeat="update in leg.actions | filter:{$: 'committee'}">
+        <p>Committee: {{update.related_entities[0].name}}</p>
+      </span> -->
     </div>
-    <div>
-      <span>Co-Sponsor(s):</span>
-      <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+    <div class="votes" ng-if="leg.bill_id.indexOf('B') !== 0">
+      <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(leg)"></i>{{leg.score.supporting}}</span>
+      <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(leg)"></i>{{leg.score.opposing}}</span>
     </div>
-  </div>
-  <div class="votes" ng-if="leg.bill_id.indexOf('B') !== 0">
-    <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(leg)"></i>{{leg.score.supporting}}</span>
-    <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(leg)"></i>{{leg.score.opposing}}</span>
   </div>
 </div>

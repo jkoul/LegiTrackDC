@@ -1,7 +1,9 @@
 (function() {
   app = angular.module("openlimsControllers",['ngRoute']);
   app.controller("billsController", ['Bill', 'Vote', 'Legislation', function(Bill, Vote, Legislation){
-
+    this.filters = 0;
+    this.filtersOpen = false;
+    this.activeFilters = [];
     this.all = Bill.query();
     var self=this;
     this.all.$promise.then(function($response, $Vote){
@@ -15,9 +17,226 @@
         self.getType(b);
         Vote.get(b);
       });
-      self.loadFilters();
       return $response;
     });
+
+    this.filterFields = [
+      {
+        type: 'Legislation Type',
+        name: 'Bills',
+        checked: true
+      },
+      {
+        type: 'Legislation Type',
+        name: 'Resolutions',
+        checked: true
+      },
+      {
+        type: 'Legislation Type',
+        name: 'Contracts',
+        checked: true
+      },
+      {
+        type: 'Legislation Type',
+        name: 'Budget Modifications',
+        checked: true
+      },
+      {
+        type: 'Legislation Type',
+        name: 'Reports',
+        checked: true
+      },
+      {
+        type: 'Legislation Status',
+        name: 'Under Council Review',
+        checked: true
+      },
+      {
+        type: 'Legislation Status',
+        name: 'Enacted',
+        checked: true
+      },
+      {
+        type: 'Legislation Status',
+        name: 'Other',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Committee of the Whole',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Committee of the Whole',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Business, Consumer & Regulatory Affairs',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Education',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Finance & Revenue',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Health & Human Services',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Housing & Community Development',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Judiciary',
+        checked: true
+      },
+      {
+        type: 'Committee Referral',
+        name: 'Transportation & Environment',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Yvette Alexander',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Charles Allen',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Anita Bonds',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Mary Cheh',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Jack Evans',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'David Grosso',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'LaRuby May',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Kenyan McDuffie',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Phil Mendelson',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Brianne Nadeau',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Vincent Orange',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Elissa Silverman',
+        checked: true
+      },
+      {
+        type: 'Sponsor',
+        name: 'Brandon Todd',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Yvette Alexander',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Charles Allen',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Anita Bonds',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Mary Cheh',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Jack Evans',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'David Grosso',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'LaRuby May',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Kenyan McDuffie',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Phil Mendelson',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Brianne Nadeau',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Vincent Orange',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Elissa Silverman',
+        checked: true
+      },
+      {
+        type: 'Co-Sponsor',
+        name: 'Brandon Todd',
+        checked: true
+      }
+    ]
 
     this.getType = function(bill){
       var id = bill.bill_id.split("-");
@@ -110,18 +329,33 @@
       }
     }
 
-    this.loadFilters = function(){
-      
+    this.toggleFilters = function(){
+      $('.filters-accordion').toggleClass('ng-hide');
+      self.filters ++;
+      if(self.filters % 2 == 1){
+        self.filtersOpen = true;
+      } else {
+        self.filtersOpen = false;
+      }
     }
+
+
+
+    this.watchFilters = function(filter){
+      self.activeBills = []
+        if(filter.checked == true){
+          self.activeFilters.push(filter.name);
+        }
+      console.log(self.activeFilters);
+    };
 
   }]);
 
-app.controller("scoreController", ['$routeParams', '$location',''])
 
-
-  app.controller("showBillController", ['$routeParams', '$location','Bill', function($routeParams,$location,Bill){
-    this.bill = Bill.get({$bill_id: $routeParams.bill_id}, function(){
-      $(".filters-detail").hide()
+  app.controller("showBillController", ['$routeParams', '$location','Legislation', 'Vote', function($routeParams, $location, Legislation, Vote){
+    this.bill = Legislation.get({$id: $routeParams.id}, function(bill){
+      $(".filters-detail").hide();
+      // Vote.get(bill);
     });
-  }])
-})();
+  }]);
+})()

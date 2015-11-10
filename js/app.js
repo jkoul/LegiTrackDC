@@ -9,5 +9,12 @@
     'openlimsRouter',
     'rt.encodeuri',
     'ui.bootstrap'
-  ]);
+  ])
+  .config(function($sceDelegateProvider){
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      'http://dc.granicus.com/**',
+      'http://lims.dccouncil.us/Download/**'
+    ]);
+  });
 })()

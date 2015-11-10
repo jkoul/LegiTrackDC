@@ -53,17 +53,18 @@
     var legDetail = {
       query: function() {return legDetails;},
       get: function(bill) {
-        var found = legDetails.find(function(leg) {
-          return leg.$id === bill.Legislation[0].Title;
-        });
-        if(!found) {
-          found = bill;
-          legRef.child(bill.Legislation[0].Title).set(found);
-        };
-        legRef.child(bill.Legislation[0].Title).on('value', function(snapshot) {
-          bill.detail = snapshot.val();
-        })
-        bill.detail = found;
+        var found = $firebaseObject(legRef.child(bill.$id));
+        // function(bill) {
+        //   return leg.$id === bill.Legislation[0].Title;
+        // });
+        // if(!found) {
+        //   found = bill;
+        //   legRef.child(bill.Legislation[0].Title).set(found);
+        // };
+        // legRef.child(bill.Legislation[0].Title).on('value', function(snapshot) {
+        //   bill.detail = snapshot.val();
+        // })
+        return found;
       },
       save: function(bill) {
         var detail = {

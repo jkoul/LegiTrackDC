@@ -8,11 +8,15 @@ $colorPrimary: #9E091E;
 $colorSecondary: #f6f6f6;
 
 @mixin billDivStyle (){
-  background: #bbb;
-  border: 5px groove $colorPrimary;
+  background: #eee;
+  border: 2px groove $colorPrimary;
   & h3 a {
     text-decoration: none;
     color: $colorPrimary;
+  }
+  & p {
+    line-height: 1em;
+    margin: .5em;
   }
 }
 
@@ -105,6 +109,7 @@ nav {
       }
       & .search {
         font-size: 0.8em;
+        color: #000 !important;
       }
     }
     & li:hover {
@@ -180,63 +185,129 @@ nav {
   @include billDivStyle();
 }
 
-.legislation {
-  display: flex;
-  margin: 0 auto;
-}
-
 .filters {
   width: 80%;
   margin: 0 auto;
   border: 5px solid #999;
   padding-bottom: 1em;
   // background-color: lighten($colorPrimary, 50%);
-  // & .filters-boxes {
-  //   max-height: 120px;
-  //   transition: .8s;
-  //   overflow: hidden;
-  //   & .hidden {
-  //     max-height: 0;
-  //   }
-  // }
-  & label{
-    display: inline-flex;
-    padding: 0 1em;
-    align-items: center;
-    font-weight: bold;
-    & input[type='checkbox'] {
-     -webkit-appearance:none;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius:5px;
-      border:2px solid #555;
-      &:checked {
-        background: darken($colorPrimary, 15%);
-      }
-      &:focus {
-        outline: 0;
+
+  button:focus {
+    outline: 0;
+  }
+
+  .animate-show.ng-hide {
+    transition: 1s;
+  }
+
+  .filters-accordion {
+    overflow: hidden;
+
+    .boxes {
+      text-align: center;
+
+      .chk-filter {
+        display: inline-flex;
+        align-content: space-between;
+        margin:  5px 10px;
+        background-color: #EFEFEF;
+        border-radius: 10px;
+        border: 1px solid $colorPrimary;
+        overflow: auto;
+
+        label {
+          font-size: 1.2em;
+          float: left;
+          width: auto;
+          margin-bottom: 0;
+
+          span {
+            text-align:center;
+            padding: 10px;
+            display:block;
+          }
+
+          input {
+            position:absolute;
+            top:-20px;
+          }
+        }
+
+        input:checked + span {
+          background-color: $colorPrimary;
+          color:#fff;
+        }
       }
     }
   }
+
+  // & label{
+  //   display: inline-flex;
+  //   padding: 0 1em;
+  //   align-items: center;
+  //   font-weight: bold;
+  //   & input[type='checkbox'] {
+  //    -webkit-appearance:none;
+  //     width: 20px;
+  //     height: 20px;
+  //     background: white;
+  //     border-radius:5px;
+  //     border:2px solid #555;
+  //     &:checked {
+  //       background: darken($colorPrimary, 15%);
+  //     }
+  //     &:focus {
+  //       outline: 0;
+  //     }
+  //   }
+  // }
 }
 
 .load-note {
   font-style: italic;
 }
 
+.legislation {
+  display: flex;
+  margin: 0 auto;
+}
+
 .leg-item {
-  width: 50%;
-  margin: 1em 5% 0 20%;
+  width: 90%;
+  margin: 1em 5% 0 5%;
   @include billDivStyle();
 }
 
-.billdetail {
-  width: 70%;
-  margin: 10% auto 0;
-  font-weight: 700;
-  font-size: 1.2em;
-  @include billDivStyle();
+.show-heading {
+  a {
+    text-decoration: none;
+    color: $colorPrimary;
+  }
+}
+
+
+.show-tabs {
+  width: 90%;
+  margin: 2em auto;
+  border: 2px groove $colorPrimary;
+
+  .nav-tabs {
+    display: inline-flex;
+  }
+  .show-tabs-section {
+    background: #eee;
+    & h3 span {
+      display: block;
+      color: $colorPrimary;
+    }
+    & p {
+      line-height: 1em;
+      margin: .5em;
+    }
+  }
+  // font-weight: 700;
+  // font-size: 1.2em;
+  // @include billDivStyle();
 }
 
 .votes, .votes-show {

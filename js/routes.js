@@ -22,7 +22,7 @@
       controllerAs: 'billsCtrl',
       templateUrl: 'js/views/bills/other.html'
     }).
-    when("/bills/:bill_id", {
+    when("/bills/:id", {
       templateUrl: 'js/views/bills/show.html',
       controller: 'showBillController',
       controllerAs: 'showBillCtrl'

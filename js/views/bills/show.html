@@ -1,15 +1,82 @@
-<div>
-  <div class="billdetail">
-    <h2>{{showBillCtrl.bill.billNumber}} - {{showBillCtrl.bill.title}}</h2>
-    <h3>Bill Type: {{showBillCtrl.bill.billType}}</h3>
-    <p>Committee: {{showBillCtrl.bill.committeeReferral}}</p>
-    <p>Sponsor: {{showBillCtrl.bill.introducedBy}}</p>
-    <p>Co-Sponsors: {{showBillCtrl.bill.cosponsors}}</p>
-    <p>Introduced on: {{showBillCtrl.bill.introDate}}</p>
-    <p>Current Status: {{showBillCtrl.bill.status}}</p>
+  <!-- <div class="billdetail">
+    <h3><a ng-href="http://lims.dccouncil.us/Legislation/{{leg.bill_id}}">{{leg.bill_id}} - {{leg.title}}</a></h3>
+    <h2>{{bill.}} - {{bill.title}}</h2>
+    <h3>Bill Type: {{bill.billType}}</h3>
+    <p>Committee: {{bill.committeeReferral}}</p>
+    <p>Sponsor: {{bill.introducedBy}}</p>
+    <p>Co-Sponsors: {{bill.cosponsors}}</p>
+    <p>Introduced on: {{bill.introDate}}</p>
+    <p>Current Status: {{bill.status}}</p>
   </div>
   <div class="votes-show">
-    <span><i class="fa fa-thumbs-up"></i>{{showBillCtrl.bill.score.supporting}}</span>
-    <span><i class="fa fa-thumbs-down"></i>{{showBillCtrl.bill.score.opposing}}</span>
+    <span><i class="fa fa-thumbs-up"></i>{{bill.score.supporting}}</span>
+    <span><i class="fa fa-thumbs-down"></i>{{bill.score.opposing}}</span>
   </div>
+</div> -->
+<h2 class="show-heading"><a ng-href="/#/bills/{{showBillCtrl.bill.Legislation[0].Title}}">{{showBillCtrl.bill.Legislation[0].Title}}: {{showBillCtrl.bill.Legislation[0].ShortTitle}}</a></h2>
+
+<div class="show-tabs">
+  <uib-tabset>
+    <uib-tab heading="Legislation Overview">
+      <div class="show-tabs-section bill-detail">
+        <h3><span>{{showBillCtrl.bill.Legislation[0].Title}}</span>
+          <span>{{showBillCtrl.bill.Legislation[0].ShortTitle}}</span></h3>
+        <h4>Type: Bill</h4>
+        <p>Introduction Date: {{showBillCtrl.bill.Legislation[0].IntroductionDate | date:"longDate"}}</p>
+        <p>Last Update: {{showBillCtrl.bill.Legislation[0].Modified | date:"longDate"}}</p>
+        <p>Status: {{showBillCtrl.bill.Legislation[0].LegislationStatus}}</p>
+        <p>{{showBillCtrl.bill.Legislation[0].AdditionalInformation}}</p>
+        <p>Sponsor(s): <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <p ng-if="showBillCtrl.bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <div>
+          <a class="btn btn-default" ng-href="http://lims.dccouncil.us/Legislation/{{showBillCtrl.bill.Legislation[0].Title}}" target="_blank">View in LIMS</a>
+          <a class="btn btn-default" ng-href="http://lims.dccouncil.us/Download/{{showBillCtrl.bill.Legislation[0].AttachmentPath[0].RelativePath}}/{{showBillCtrl.bill.Legislation[0].AttachmentPath[0].Name}}" target="_blank">View Bill Text</a>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab ng-if="showBillCtrl.bill.Hearing" heading="Committee Hearing">
+      <div class="show-tabs-section bill-hearing-info">
+        <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <p>Hearing Date: {{showBillCtrl.bill.Hearing[0].HearingDate | date:"longDate"}}</p>
+        <iframe scrolling="no" style="border:0" width="480" height="460" id="GranicusFlashPlayerFrame" src={{showBillCtrl.bill.Hearing[0].HearingDetails}}></iframe>
+        <object type="application/pdf" data="http://lims.dccouncil.us/Download/{{showBillCtrl.bill.Hearing[0].AttachmentPath[0].RelativePath}}/{{showBillCtrl.bill.Hearing[0].AttachmentPath[0].Name}}" width="80%" height="800px"></object>
+      </div>
+    </uib-tab>
+    <uib-tab ng-if="showBillCtrl.bill.ComiteeMarkup" heading="Committee Action">
+      <div class="show-tabs-section bill-cmte-action">
+        <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <p>Markup Date: {{showBillCtrl.bill.ComiteeMarkup[0].ActionDate | date:"longDate"}}</p>
+        <h4>Vote Results</h4>
+        <div ng-repeat="type in showBillCtrl.bill.ComiteeMarkup[0].Vote">
+          <div class="vote-type" ng-if="type.VoteType !== ''">{{type.VoteType}}: {{type.VoteCount}}</div>
+        </div>
+        <iframe scrolling="no" style="border:0" width="480" height="460" id="GranicusFlashPlayerFrame" src={{showBillCtrl.bill.ComiteeMarkup[0].VideoLink}}></iframe>
+        <p>Report Date: {{showBillCtrl.bill.ComiteeMarkup[0].ReportDate | date:"longDate"}}</p>
+        <object type="application/pdf" data="http://lims.dccouncil.us/Download/{{showBillCtrl.bill.ComiteeMarkup[0].AttachmentPath[0].RelativePath}}/{{showBillCtrl.bill.ComiteeMarkup[0].AttachmentPath[0].Name}}" width="80%" height="800px"></object>
+      </div>
+    </uib-tab>
+    <uib-tab ng-if="showBillCtrl.bill.VotingSummary" heading="Votes">
+      Votes on This Bill: {{showBillCtrl.bill.VotingSummary.length}}
+      <div ng-repeat="vote in showBillCtrl.bill.VotingSummary">
+        <div class="council-vote-detail">
+          <h5>Vote Date: {{vote.DateOfVote | date:"longDate"}}</h5>
+          <h5>Vote Result: {{vote.VoteResult}}</h5>
+          <div ng-repeat="member in vote.MemberVotes track by $index">
+            {{member.Name}}: {{member.Vote}}
+          </div>
+        </div>
+      </div>
+    </uib-tab>
+    <uib-tab ng-if="showBillCtrl.bill.MayorReview" heading="Mayor/Congress Review">
+      <span ng-if="showBillCtrl.bill.MayorReview[0].SignedDate">
+        <p>Date Signed by Mayor: {{showBillCtrl.bill.MayorReview[0].SignedDate}}</p>
+        <p><a class="btn btn-default" ng-href="http://lims.dccouncil.us/Download/{{showBillCtrl.bill.MayorReview[0].AttachmentPath[0].RelativePath}}/{{showBillCtrl.bill.MayorReview[0].AttachmentPath[0].Name}}" target="_blank">View Signed Act</a></p>
+      </span>
+    </uib-tab>
+  </uib-tabset>
+</div>
+<div class="votes">
+  <span><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(bill)"></i>{{bill.score.supporting}}</span>
+  <span><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(bill)"></i>{{bill.score.opposing}}</span>
 </div>

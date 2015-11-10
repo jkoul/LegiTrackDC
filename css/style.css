@@ -76,7 +76,8 @@ nav {
         text-decoration: none;
         color: inherit; }
       nav ul li .search {
-        font-size: 0.8em; }
+        font-size: 0.8em;
+        color: #000 !important; }
     nav ul li:hover {
       background: #9E091E;
       color: #f6f6f6;
@@ -126,60 +127,89 @@ nav {
   list-style: none;
   font-size: 1.5em;
   background: #ccc;
-  background: #bbb;
-  border: 5px groove #9E091E; }
+  background: #eee;
+  border: 2px groove #9E091E; }
   .about h3 a, .how h3 a {
     text-decoration: none;
     color: #9E091E; }
-
-.legislation {
-  display: flex;
-  margin: 0 auto; }
+  .about p, .how p {
+    line-height: 1em;
+    margin: .5em; }
 
 .filters {
   width: 80%;
   margin: 0 auto;
   border: 5px solid #999;
   padding-bottom: 1em; }
-  .filters label {
-    display: inline-flex;
-    padding: 0 1em;
-    align-items: center;
-    font-weight: bold; }
-    .filters label input[type='checkbox'] {
-      -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
-      background: white;
-      border-radius: 5px;
-      border: 2px solid #555; }
-      .filters label input[type='checkbox']:checked {
-        background: #560510; }
-      .filters label input[type='checkbox']:focus {
-        outline: 0; }
+  .filters button:focus {
+    outline: 0; }
+  .filters .animate-show.ng-hide {
+    transition: 1s; }
+  .filters .filters-accordion {
+    overflow: hidden; }
+    .filters .filters-accordion .boxes {
+      text-align: center; }
+      .filters .filters-accordion .boxes .chk-filter {
+        display: inline-flex;
+        align-content: space-between;
+        margin: 5px 10px;
+        background-color: #EFEFEF;
+        border-radius: 10px;
+        border: 1px solid #9E091E;
+        overflow: auto; }
+        .filters .filters-accordion .boxes .chk-filter label {
+          font-size: 1.2em;
+          float: left;
+          width: auto;
+          margin-bottom: 0; }
+          .filters .filters-accordion .boxes .chk-filter label span {
+            text-align: center;
+            padding: 10px;
+            display: block; }
+          .filters .filters-accordion .boxes .chk-filter label input {
+            position: absolute;
+            top: -20px; }
+        .filters .filters-accordion .boxes .chk-filter input:checked + span {
+          background-color: #9E091E;
+          color: #fff; }
 
 .load-note {
   font-style: italic; }
 
+.legislation {
+  display: flex;
+  margin: 0 auto; }
+
 .leg-item {
-  width: 50%;
-  margin: 1em 5% 0 20%;
-  background: #bbb;
-  border: 5px groove #9E091E; }
+  width: 90%;
+  margin: 1em 5% 0 5%;
+  background: #eee;
+  border: 2px groove #9E091E; }
   .leg-item h3 a {
     text-decoration: none;
     color: #9E091E; }
+  .leg-item p {
+    line-height: 1em;
+    margin: .5em; }
 
-.billdetail {
-  width: 70%;
-  margin: 10% auto 0;
-  font-weight: 700;
-  font-size: 1.2em;
-  background: #bbb;
-  border: 5px groove #9E091E; }
-  .billdetail h3 a {
-    text-decoration: none;
-    color: #9E091E; }
+.show-heading a {
+  text-decoration: none;
+  color: #9E091E; }
+
+.show-tabs {
+  width: 90%;
+  margin: 2em auto;
+  border: 2px groove #9E091E; }
+  .show-tabs .nav-tabs {
+    display: inline-flex; }
+  .show-tabs .show-tabs-section {
+    background: #eee; }
+    .show-tabs .show-tabs-section h3 span {
+      display: block;
+      color: #9E091E; }
+    .show-tabs .show-tabs-section p {
+      line-height: 1em;
+      margin: .5em; }
 
 .votes, .votes-show {
   display: flex;

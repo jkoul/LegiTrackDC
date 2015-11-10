@@ -23,9 +23,9 @@
           if(data.Legislation[0].CoSponsor){
             data.Legislation[0].CoSponsor = JSON.parse(data.Legislation[0].CoSponsor);
           }
-          data.Legislation[0].CommitteeReferral = JSON.parse($response.data.Legislation[0].CommitteeReferral);
-          data.Legislation[0].AttachmentPath = JSON.parse($response.data.Legislation[0].AttachmentPath);
-          data.Legislation[0].MemoLink = JSON.parse($response.data.Legislation[0].MemoLink);
+          data.Legislation[0].CommitteeReferral = JSON.parse(data.Legislation[0].CommitteeReferral);
+          data.Legislation[0].AttachmentPath = JSON.parse(data.Legislation[0].AttachmentPath);
+          data.Legislation[0].MemoLink = JSON.parse(data.Legislation[0].MemoLink);
           switch(data.Legislation[0].LegislationStatus) {
             case 0:
               status = "Any status";
@@ -70,10 +70,107 @@
               status = "None";
           }
           data.Legislation[0].LegislationStatus = status;
-          Legislation.save(data);
+          if(data.Hearing[0]){
+            if(data.Hearing[0].HearingDate){
+              data.Hearing[0].HearingDate = Date.parse(data.Hearing[0].HearingDate);
+            };
+            if(data.Hearing[0].HearingDetails){
+              data.Hearing[0].HearingDetails += "&embed=1&player_width=480&player_height=360&auto_start=0";
+            };
+            if (data.Hearing[0].AttachmentPath){
+              data.Hearing[0].AttachmentPath = JSON.parse(data.Hearing[0].AttachmentPath);
+            }
+          }
+          if(data.ComiteeMarkup[0]){
+            data.ComiteeMarkup[0].Vote = JSON.parse(data.ComiteeMarkup[0].Vote);
+            if(data.ComiteeMarkup[0].VideoLink){
+              data.ComiteeMarkup[0].VideoLink += "&embed=1&player_width=480&player_height=360&auto_start=0";
+            };
+            if(data.ComiteeMarkup[0].ActionDate){
+              data.ComiteeMarkup[0].ActionDate = Date.parse(data.ComiteeMarkup[0].ActionDate);
+            };
+            if(data.ComiteeMarkup[0].AttachmentPath){
+              data.ComiteeMarkup[0].AttachmentPath = JSON.parse(data.ComiteeMarkup[0].AttachmentPath);
+            };
+            if(data.ComiteeMarkup[0].ReportDate){
+              data.ComiteeMarkup[0].ReportDate = Date.parse(data.ComiteeMarkup[0].ReportDate);
+            };
+          }
+          if(data.VotingSummary[0]){
+            angular.forEach(data.VotingSummary, function(vote){
+              vote.DateOfVote = Date.parse(vote.DateOfVote);
+              if(vote.VideoLink){
+                vote.VideoLink += "&embed=1&player_width=480&player_height=360&auto_start=0";
+              };
+              if(vote.AttachmentPath){
+                vote.AttachmentPath = JSON.parse(vote.AttachmentPath);
+              };
+              vote.MemberVotes = JSON.parse(vote.MemberVotes);
+              angular.forEach(vote.MemberVotes, function(cm){
+                switch(cm.MemberId){
+                  case 230:
+                    name = "Yvette Alexander";
+                    break;
+                  case 231:
+                    name = "Anita Bonds";
+                    break;
+                  case 232:
+                    name = "Mary Cheh";
+                    break;
+                  case 233:
+                    name = "Jack Evans";
+                    break;
+                  case 234:
+                    name = "David Grosso";
+                    break;
+                  case 235:
+                    name = "Kenyan McDuffie";
+                    break;
+                  case 236:
+                    name = "Vincent Orange";
+                    break;
+                  case 237:
+                    name = "Phil Mendelson";
+                    break;
+                  case 238:
+                    name = "Elissa Silverman";
+                    break;
+                  case 239:
+                    name = "Charles Allen";
+                    break;
+                  case 240:
+                    name = "Brianne Nadeau";
+                    break;
+                  case 244:
+                    name = "Brandon Todd";
+                    break;
+                  case 245:
+                    name = "LaRuby May";
+                    break;
+                  default:
+                    name = "";
+                };
+                switch(cm.Vote){
+                  case "1":
+                    vote = "Yes";
+                    break;
+                  case "2":
+                    vote = "No";
+                    break;
+                  case "3":
+                    vote = "Absent";
+                    break;
+                  default:
+                    vote = "Other";
+                };
+                cm.Vote = vote;
+                angular.extend(cm, {'Name': name});
+              });
+            });
+          }
 //all other changes to returned LIMS data go here
-
-          billObject.push($response.data);
+          Legislation.save(data);
+          billObject.push(data);
 
         })
         return billObject;
