@@ -8,7 +8,8 @@
     'openlimsControllers',
     'openlimsRouter',
     'rt.encodeuri',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'checklist-model'
   ])
   .config(function($sceDelegateProvider){
     $sceDelegateProvider.resourceUrlWhitelist([

@@ -1,8 +1,11 @@
 (function(){
   var billServices = angular.module('billServices', ['ngResource', 'firebase']);
-  billServices.factory('Bill', ['$resource', function($resource) {
-    return $resource('http://openstates.org/api/v1/bills/?state=dc&search_window=term&fields=bill_id,title,sponsors,actions,action_dates&apikey=ef41e9a0f78e43b3b5491ff01138a442/', {});
+  billServices.factory('OpenStates', ['$resource', function($resource) {
+    return $resource('http://openstates.org/api/v1/bills/?state=dc&search_window=term&fields=bill_id,title,type,sponsors,actions,action_dates,votes,versions&apikey=ef41e9a0f78e43b3b5491ff01138a442/', {});
   }]);
+  billServices.factory('OSDetail', ['$resource', function($resource) {
+    return $resource('http://openstates.org/api/v1/bills/dc/21/:id' + '&apikey=ef41e9a0f78e43b3b5491ff01138a442/', {});
+  }])
 
   // var connectedRef = new Firebase(firebaseUrl + "/.info/connected");
   //  connectedRef.on("value", function(snapshot) {
@@ -19,20 +22,19 @@
     var billVotes = $firebaseArray(votesRef);
     var billVote = {
       query: function(){return billVotes;},
-      get: function(bill) {
-        var found = billVotes.find(function(vote){
-          return vote.$id === bill.bill_id;
-        });
+      get: function(bill, cb) {
+        var found = $firebaseObject(votesRef.child(bill.$id));
+        if(typeof cb == "function") cb(found);
         if(!found) {
           found = {
             supporting: 0,
             opposing: 0
           };
-          votesRef.child(bill.bill_id).set(found);
+          votesRef.child(bill.$id).set(found);
         }
-        votesRef.child(bill.bill_id).on('value', function(snapshot) {
+        votesRef.child(bill.$id).on('value', function(snapshot) {
           bill.score = snapshot.val();
-        })
+        });
         bill.score = found;
       },
       save: function(bill){
@@ -40,7 +42,7 @@
           opposing: bill.score.opposing,
           supporting: bill.score.supporting
         };
-        votesRef.child(bill.bill_id).set(score);
+        votesRef.child(bill.$id).set(score);
       }
     };
     return billVote;
@@ -70,7 +72,11 @@
         var detail = {
           // set parameters for each bill based on LIMS data
         }
-        legRef.child(bill.Legislation[0].Title).set(bill)
+        if(bill.Legislation){
+          legRef.child(bill.Legislation[0].Title).set(bill);
+        } else {
+          legRef.child(bill.id).set(bill);
+        }
       }
     }
     return legDetail;

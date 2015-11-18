@@ -80,6 +80,7 @@ nav {
   font-size: 1.5em;
   font-weight: bold;
   position: fixed;
+  z-index: 1111;
   & ul {
     list-style: none;
     display: inline-flex;
@@ -203,64 +204,34 @@ nav {
   .filters-accordion {
     overflow: hidden;
 
-    .boxes {
-      text-align: center;
-
-      .chk-filter {
-        display: inline-flex;
-        align-content: space-between;
-        margin:  5px 10px;
-        background-color: #EFEFEF;
-        border-radius: 10px;
-        border: 1px solid $colorPrimary;
-        overflow: auto;
-
-        label {
-          font-size: 1.2em;
-          float: left;
-          width: auto;
-          margin-bottom: 0;
-
-          span {
-            text-align:center;
-            padding: 10px;
-            display:block;
-          }
-
-          input {
-            position:absolute;
-            top:-20px;
-          }
-        }
-
-        input:checked + span {
-          background-color: $colorPrimary;
-          color:#fff;
-        }
-      }
+    .btn-danger:hover {
+      background: #999;
+      color: $colorSecondary;
     }
   }
 
-  // & label{
-  //   display: inline-flex;
-  //   padding: 0 1em;
-  //   align-items: center;
-  //   font-weight: bold;
-  //   & input[type='checkbox'] {
-  //    -webkit-appearance:none;
-  //     width: 20px;
-  //     height: 20px;
-  //     background: white;
-  //     border-radius:5px;
-  //     border:2px solid #555;
-  //     &:checked {
-  //       background: darken($colorPrimary, 15%);
-  //     }
-  //     &:focus {
-  //       outline: 0;
-  //     }
-  //   }
-  // }
+
+
+  & label{
+    display: inline-flex;
+    padding: 0 1em;
+    align-items: center;
+    font-weight: bold;
+    & input[type='checkbox'] {
+     -webkit-appearance:none;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius:5px;
+      border:2px solid #555;
+      &:checked {
+        background: darken($colorPrimary, 15%);
+      }
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
 }
 
 .load-note {
@@ -295,6 +266,7 @@ nav {
     display: inline-flex;
   }
   .show-tabs-section {
+    padding: 1em;
     background: #eee;
     & h3 span {
       display: block;
@@ -332,7 +304,7 @@ nav {
 }
 
 .votes-show {
-  width: 25%;
+  width: 40%;
   margin: 0 auto;
   justify-content: center;
 }

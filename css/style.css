@@ -50,7 +50,8 @@ nav {
   margin-top: 150px;
   font-size: 1.5em;
   font-weight: bold;
-  position: fixed; }
+  position: fixed;
+  z-index: 1111; }
   nav ul {
     list-style: none;
     display: inline-flex;
@@ -147,31 +148,25 @@ nav {
     transition: 1s; }
   .filters .filters-accordion {
     overflow: hidden; }
-    .filters .filters-accordion .boxes {
-      text-align: center; }
-      .filters .filters-accordion .boxes .chk-filter {
-        display: inline-flex;
-        align-content: space-between;
-        margin: 5px 10px;
-        background-color: #EFEFEF;
-        border-radius: 10px;
-        border: 1px solid #9E091E;
-        overflow: auto; }
-        .filters .filters-accordion .boxes .chk-filter label {
-          font-size: 1.2em;
-          float: left;
-          width: auto;
-          margin-bottom: 0; }
-          .filters .filters-accordion .boxes .chk-filter label span {
-            text-align: center;
-            padding: 10px;
-            display: block; }
-          .filters .filters-accordion .boxes .chk-filter label input {
-            position: absolute;
-            top: -20px; }
-        .filters .filters-accordion .boxes .chk-filter input:checked + span {
-          background-color: #9E091E;
-          color: #fff; }
+    .filters .filters-accordion .btn-danger:hover {
+      background: #999;
+      color: #f6f6f6; }
+  .filters label {
+    display: inline-flex;
+    padding: 0 1em;
+    align-items: center;
+    font-weight: bold; }
+    .filters label input[type='checkbox'] {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 5px;
+      border: 2px solid #555; }
+      .filters label input[type='checkbox']:checked {
+        background: #560510; }
+      .filters label input[type='checkbox']:focus {
+        outline: 0; }
 
 .load-note {
   font-style: italic; }
@@ -203,6 +198,7 @@ nav {
   .show-tabs .nav-tabs {
     display: inline-flex; }
   .show-tabs .show-tabs-section {
+    padding: 1em;
     background: #eee; }
     .show-tabs .show-tabs-section h3 span {
       display: block;
@@ -230,7 +226,7 @@ nav {
     margin-right: 5px; }
 
 .votes-show {
-  width: 25%;
+  width: 40%;
   margin: 0 auto;
   justify-content: center; }
 
