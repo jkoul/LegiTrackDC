@@ -31,8 +31,7 @@
         <p>Last Update: {{showBillCtrl.bill.Legislation[0].Modified | date:"longDate"}}</p>
         <p>Status: {{showBillCtrl.bill.Legislation[0].LegislationStatus}}</p>
         <p>{{showBillCtrl.bill.Legislation[0].AdditionalInformation}}</p>
-        <p>Sponsor(s): <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].Introducer track by $index'>{{cm.Name}}
-          <span ng-if="!$last">, </span>
+        <p>Sponsor(s): <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span>
         </span></p>
         <p ng-if="showBillCtrl.bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
         <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>

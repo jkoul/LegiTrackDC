@@ -14,11 +14,25 @@
             var data = $response.data
             data.Legislation[0].IntroductionDate = Date.parse(data.Legislation[0].IntroductionDate);
             data.Legislation[0].Modified = Date.parse(data.Legislation[0].Modified);
+            angular.extend(data, {'Modified': data.Legislation[0].Modified})
             data.Legislation[0].Introducer = JSON.parse(data.Legislation[0].Introducer);
             if(data.Legislation[0].CoSponsor){
               data.Legislation[0].CoSponsor = JSON.parse(data.Legislation[0].CoSponsor);
             }
             data.Legislation[0].CommitteeReferral = JSON.parse(data.Legislation[0].CommitteeReferral);
+            if(data.Legislation[0].CommitteeReferralComments){
+              data.Legislation[0].CommitteeReferralComments = JSON.parse(data.Legislation[0].CommitteeReferralComments);
+            }
+            var activeCommittees = [];
+            if(data.Legislation[0].CommitteeReferral[0]){
+              angular.forEach(data.Legislation[0].CommitteeReferral, function(cmte) {
+                activeCommittees.push(cmte.Id);
+              })
+            } else {
+              activeCommittees.push(210);
+            };
+            angular.extend(data, {'activeCommittees': activeCommittees});
+
             data.Legislation[0].AttachmentPath = JSON.parse(data.Legislation[0].AttachmentPath);
             data.Legislation[0].MemoLink = JSON.parse(data.Legislation[0].MemoLink);
             switch(data.Legislation[0].LegislationStatus) {
@@ -206,12 +220,12 @@
           if(bill.action_dates.first) {
             bill.action_dates.first = Date.parse(bill.action_dates.first);
           } else {
-            bill.action_dates.first = "N/A"
+            bill.action_dates.first = 0;
           }
           if(bill.action_dates.last) {
             bill.action_dates.last = Date.parse(bill.action_dates.last);
           } else {
-            bill.action_dates.last = "N/A"
+            bill.action_dates.last = 0;
           }
           var sponsors = []
           var cosponsors = []
@@ -223,12 +237,52 @@
             }
           });
           var committees = [];
+          bill.activeCommittees = [];
           if(bill.actions[0]){
             if(bill.actions[0].related_entities) {
-              angular.forEach(bill.actions[0].related_entities, function(comm){
-                committees.push({'Name': comm.name});
-              })
-            };
+              if(bill.actions[0].related_entities[0]) {
+                angular.forEach(bill.actions[0].related_entities, function(comm){
+                  switch (comm.name) {
+                    case 'Business, Consumer, and Regulatory Affairs':
+                      bill.activeCommittees.push(203);
+                      break;
+                    case 'Committee of the Whole':
+                      bill.activeCommittees.push(204);
+                      break;
+                    case 'Education':
+                      bill.activeCommittees.push(205);
+                      break;
+                    case 'Finance and Revenue':
+                      bill.activeCommittees.push(206);
+                      break;
+                    case 'Health and Human Services':
+                      bill.activeCommittees.push(207);
+                      break;
+                    case 'Housing and Community Development':
+                      bill.activeCommittees.push(208);
+                      break;
+                    case 'Judiciary':
+                      bill.activeCommittees.push(209);
+                      break;
+                    case 'Retained':
+                      bill.activeCommittees.push(210);
+                      break;
+                    case 'Transportation and the Environment':
+                      bill.activeCommittees.push(211);
+                      break;
+                    default:
+                      bill.activeCommittees.push(210);
+                  }
+                  committees.push({'Name': comm.name});
+                })
+              } else {
+                bill.activeCommittees.push(210);
+              }
+            } else {
+              bill.activeCommittees.push(210);
+            }
+          } else {
+            bill.activeCommittees.push(210);
           };
           if(bill.bill_id.indexOf('PR') == 0){
             if(bill.versions[0]){
@@ -258,7 +312,8 @@
             'Introducer': sponsors,
             'CoSponsor': cosponsors,
             'Attachments': bill.versions,
-            'sumStatus': bill.sumStatus
+            'sumStatus': bill.sumStatus,
+            'activeCommittees': bill.activeCommittees
           })
           console.log(billDetail);
           Legislation.save(billDetail);
@@ -299,3 +354,35 @@
     //   angular.forEach(billNums, function(Id){
     //     Legislation.get(Id);
     //   })
+
+    // switch(cmte.Id) {
+    //   case 203:
+    //     committeeId = 2;
+    //     break;
+    //   case 204:
+    //     committeeId = 1;
+    //     break;
+    //   case 205:
+    //     committeeId = 3;
+    //     break;
+    //   case 206:
+    //     committeeId = 4;
+    //     break;
+    //   case 207:
+    //     committeeId = 5;
+    //     break;
+    //   case 208:
+    //     committeeId = 6;
+    //     break;
+    //   case 209:
+    //     committeeId = 7;
+    //     break;
+    //   case 210:
+    //     committeeId = 9;
+    //     break;
+    //   case 211:
+    //     committeeId = 8;
+    //     break;
+    //   default:
+    //     committeeId = 9;
+    // }

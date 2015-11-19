@@ -3,7 +3,7 @@
   app.controller("billsController", ['OpenStates', 'Vote', 'Legislation', function(OpenStates, Vote, Legislation){
     this.filters = 0;
     this.filtersOpen = false;
-    this.activeFilters = [[1,2,3,4,5],[],[],[]];
+    this.activeFilters = [[1,2,3,4,5],[1,2,3],[203,204,205,206,207,208,209,210,211],[]];
     var self=this
     this.all = Legislation.query();
         this.all.$loaded().then(function($response, $Vote){
@@ -71,50 +71,56 @@
       [
         {
           type: 'Committee Referral',
-          id: 'cowFilter',
+          committeeId: 204,
           name: 'Committee of the Whole',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'bcraFilter',
+          committeeId: 203,
           name: 'Business, Consumer & Regulatory Affairs',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'eduFilter',
+          committeeId: 205,
           name: 'Education',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'financeFilter',
+          committeeId: 206,
           name: 'Finance & Revenue',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'hhsFilter',
+          committeeId: 207,
           name: 'Health & Human Services',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'housingFilter',
+          committeeId: 208,
           name: 'Housing & Community Development',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'judiciaryFilter',
+          committeeId: 209,
           name: 'Judiciary',
           checked: true
         },
         {
           type: 'Committee Referral',
-          id: 'transpoFilter',
+          committeeId: 211,
           name: 'Transportation & Environment',
+          checked: true
+        },
+        {
+          type: 'Committee Referral',
+          committeeId: 210,
+          name: 'None',
           checked: true
         }
       ],
@@ -349,9 +355,19 @@
 
     this.watchFilters = function(bill){
       return (self.activeFilters[0].indexOf(bill.typeId) != -1 &&
-      self.activeFilters[1].indexOf(bill.sumStatus) != -1);
+      self.activeFilters[1].indexOf(bill.sumStatus) != -1 &&
+      self.committeeFilter(bill) == true)
     };
 
+    this.committeeFilter = function(bill){
+      var committee = false;
+      angular.forEach(bill.activeCommittees, function(cmte) {
+        if(self.activeFilters[2].indexOf(cmte) != -1) {
+          committee = true;
+        }
+      })
+      return committee;
+    }
 
     this.count = function(){
       return this.all.length;

@@ -7,11 +7,13 @@
   <div class="active-filters">
     Legislation Type: <span ng-repeat="filter in billsCtrl.activeFilters[0]">{{filter}}<span ng-if="!$last">, </span></span>
     Legislation Status: <span ng-repeat="filter in billsCtrl.activeFilters[1]">{{filter}}<span ng-if="!$last">, </span></span>
+    Committee: <span ng-repeat="filter in billsCtrl.activeFilters[2]">{{filter}}<span ng-if="!$last">, </span></span>
   </div>
   <div class="filters-accordion animate-show ng-hide">
     <uib-accordion close-others="false">
       <uib-accordion-group heading="Legislation Type">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [];">Clear Filters</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [1,2,3,4,5];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [];">Hide All</a>
         <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[0]">
           <label>
             <input type="checkbox" checklist-model="billsCtrl.activeFilters[0]" checklist-value="filter.typeId">
@@ -21,6 +23,8 @@
         </div>
       </uib-accordion-group>
       <uib-accordion-group heading="Legislation Status">
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [1,2,3];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [];">Hide All</a>
         <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[1]">
           <label>
             <input type="checkbox" checklist-model="billsCtrl.activeFilters[1]" checklist-value="filter.statusId">
@@ -28,12 +32,17 @@
           </label>
           <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{sumStatus: filter.statusId}:true) | limitTo:'1'">{{leg.length}}</span>
         </div>
+        <h5>Note: Status for contracts, budget modifications, reports, and ceremonial resolutions is unavailable at this time. These items can be found in the "Other" category.</h5>
       </uib-accordion-group>
       <uib-accordion-group heading="Committee Referral">
-        <div class="btn-group">
-          <span ng-repeat="filter in billsCtrl.filterFields[2]">
-            <label class="btn btn-danger" ng-model="filter.checked" uib-btn-checkbox>{{filter.name}}</label>
-          </span>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [203,204,205,206,207,208,209,210,211];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [];">Hide All</a>
+        <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[2]">
+          <label>
+            <input type="checkbox" checklist-model="billsCtrl.activeFilters[2]" checklist-value="filter.committeeId">
+            <span ng-bind="filter.name"></span>
+          </label>
+          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{activeCommittees: filter.committeeId}:true) | limitTo:'1'">{{leg.length}}</span>
         </div>
       </uib-accordion-group>
       <uib-accordion-group heading="Sponsor">
@@ -226,22 +235,29 @@
 <div class="results">Number of results: {{billsCtrl.count()}}</div>
 
 <div class="legislation-all">
-  <div class="legislation" ng-repeat="leg in activeBills = (billsCtrl.all | filter:billsCtrl.watchFilters | orderBy:'Modified')">
+  <div class="legislation" ng-repeat="leg in activeBills = (billsCtrl.all | filter:billsCtrl.watchFilters | orderBy:'-Modified')">
     <div class="leg-item bill" ng-if="leg.$id.indexOf('B') == 0">
       <h3><a ng-href="/#/bills/{{leg.Legislation[0].Title}}">{{leg.Legislation[0].Title}}: {{leg.Legislation[0].ShortTitle}}</a></h3>
       <h4>Type: Bill</h4>
-      <p>Introduction Date: {{leg.Legislation[0].IntroductionDate | date:"longDate"}}</p>
-      <p>Last Update: {{leg.Legislation[0].Modified | date:"longDate"}}</p>
+      <p>Introduction Date: <span ng-if="leg.Legislation[0].IntroductionDate != 0">{{leg.Legislation[0].IntroductionDate | date:"longDate"}}</span>
+      <span ng-if="leg.Legislation[0].IntroductionDate == 0">N/A</span></p>
+      <p>Last Update: <span ng-if="leg.Legislation[0].Modified != 0">{{leg.Legislation[0].Modified | date:"longDate"}}</span>
+      <span ng-if="leg.Legislation[0].Modified == 0">N/A</span></p>
       <p>Status: {{leg.Legislation[0].LegislationStatus}}</p>
       <!-- <p>Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-      <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-      <p>Committee: <span ng-repeat='cm in bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p> -->
+      <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p> -->
+      <p>Committee: <span ng-repeat='cm in leg.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
     </div>
     <div class="leg-item leg" ng-if="leg.$id.indexOf('B') !== 0">
       <h3><a ng-href="/#/bills/{{leg.$id}}">{{leg.$id}} - {{leg.ShortTitle}}</a></h3>
       <h4>Type: {{leg.typeDetail}}</h4>
-      <p>Introduction Date: {{leg.IntroductionDate | date:"longDate"}}</p>
-      <p>Latest Action: {{leg.Modified | date:"longDate"}}</p>
+      <p>Introduction Date:
+        <span ng-if="leg.IntroductionDate != 0">{{leg.IntroductionDate | date:"longDate"}}</span>
+        <span ng-if="leg.IntroductionDate == 0">N/A</span></p>
+      <p>Latest Action:
+        <span ng-if="leg.Modified != 0">{{leg.Modified | date:"longDate"}}</span>
+        <span ng-if="leg.Modified == 0">N/A</span>
+      </p>
       <!-- <div>
         <span>Sponsor(s):</span>
         <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
