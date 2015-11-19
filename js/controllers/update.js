@@ -16,9 +16,21 @@
             data.Legislation[0].Modified = Date.parse(data.Legislation[0].Modified);
             angular.extend(data, {'Modified': data.Legislation[0].Modified})
             data.Legislation[0].Introducer = JSON.parse(data.Legislation[0].Introducer);
+            var sponsorIds = [];
+            var cosponsorIds = [];
+            angular.forEach(data.Legislation[0].Introducer, function(cm) {
+              sponsorIds.push(cm.Id);
+            })
+
             if(data.Legislation[0].CoSponsor){
               data.Legislation[0].CoSponsor = JSON.parse(data.Legislation[0].CoSponsor);
+              angular.forEach(data.Legislation[0].CoSponsor, function(cm) {
+                cosponsorIds.push(cm.Id);
+              })
             }
+
+            angular.extend(data, {'sponsorIds': sponsorIds, 'cosponsorIds': cosponsorIds});
+
             data.Legislation[0].CommitteeReferral = JSON.parse(data.Legislation[0].CommitteeReferral);
             if(data.Legislation[0].CommitteeReferralComments){
               data.Legislation[0].CommitteeReferralComments = JSON.parse(data.Legislation[0].CommitteeReferralComments);
@@ -227,13 +239,61 @@
           } else {
             bill.action_dates.last = 0;
           }
-          var sponsors = []
-          var cosponsors = []
+          var sponsors = [];
+          var sponsorIds = [];
+          var cosponsors = [];
+          var cosponsorIds = [];
           angular.forEach(bill.sponsors, function(cm){
+            switch(cm.name){
+              case "Yvette Alexander":
+                sponsorId = 230;
+                break;
+              case "Anita Bonds":
+                sponsorId = 231;
+                break;
+              case "Mary Cheh":
+                sponsorId = 232;
+                break;
+              case "Jack Evans":
+                sponsorId = 233;
+                break;
+              case "David Grosso":
+                sponsorId = 234;
+                break;
+              case "Kenyan McDuffie":
+                sponsorId = 235;
+                break;
+              case "Vincent Orange":
+                sponsorId = 236;
+                break;
+              case "Phil Mendelson":
+                sponsorId = 237;
+                break;
+              case "Elissa Silverman":
+                sponsorId = 238;
+                break;
+              case "Charles Allen":
+                sponsorId = 239;
+                break;
+              case "Brianne Nadeau":
+                sponsorId = 240;
+                break;
+              case "Brandon Todd":
+                sponsorId = 244;
+                break;
+              case "LaRuby May":
+                sponsorId = 245;
+                break;
+              default:
+                sponsorId = 0;
+            };
+            angular.extend(cm, {'sponsorId': sponsorId});
             if(cm.type = "primary"){
               sponsors.push({'Name': cm.name})
+              sponsorIds.push(cm.sponsorId);
             } else {
               cosponsors.push({'Name': cm.name})
+              cosponsorIds.push(cm.cosponsorId);
             }
           });
           var committees = [];
@@ -313,7 +373,9 @@
             'CoSponsor': cosponsors,
             'Attachments': bill.versions,
             'sumStatus': bill.sumStatus,
-            'activeCommittees': bill.activeCommittees
+            'activeCommittees': bill.activeCommittees,
+            'sponsorIds': sponsorIds,
+            'cosponsorIds': cosponsorIds
           })
           console.log(billDetail);
           Legislation.save(billDetail);

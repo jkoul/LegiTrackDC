@@ -3,7 +3,13 @@
   app.controller("billsController", ['OpenStates', 'Vote', 'Legislation', function(OpenStates, Vote, Legislation){
     this.filters = 0;
     this.filtersOpen = false;
-    this.activeFilters = [[1,2,3,4,5],[1,2,3],[203,204,205,206,207,208,209,210,211],[]];
+    this.activeFilters = [
+      [1,2,3,4,5],
+      [1,2,3],
+      [203,204,205,206,207,208,209,210,211],
+      [230,231,232,233,234,235,236,237,238,239,240,244,245],
+      [230,231,232,233,234,235,236,237,238,239,240,244,245]
+    ];
     var self=this
     this.all = Legislation.query();
         this.all.$loaded().then(function($response, $Vote){
@@ -21,267 +27,224 @@
           type: 'Legislation Type',
           typeId: 1,
           name: 'Bills',
-          bills: true
         },
         {
           type: 'Legislation Type',
           typeId: 2,
-          name: 'Resolutions',
-          checked: true
+          name: 'Resolutions'
         },
         {
           type: 'Legislation Type',
           typeId: 3,
-          name: 'Contracts',
-          checked: true
+          name: 'Contracts'
         },
         {
           type: 'Legislation Type',
           typeId: 4,
-          name: 'Budget Modifications',
-          checked: true
+          name: 'Budget Modifications'
         },
         {
           type: 'Legislation Type',
           typeId: 5,
-          name: 'Reports',
-          checked: true
+          name: 'Reports'
         }
       ],
       [
         {
           type: 'Legislation Status',
           statusId: 1,
-          name: 'Under Council Review',
-          checked: true
+          name: 'Under Council Review'
         },
         {
           type: 'Legislation Status',
           statusId: 2,
-          name: 'Enacted',
-          checked: true
+          name: 'Enacted'
         },
         {
           type: 'Legislation Status',
           statusId: 3,
-          name: 'Other',
-          checked: true
+          name: 'Other'
         }
       ],
       [
         {
           type: 'Committee Referral',
           committeeId: 204,
-          name: 'Committee of the Whole',
-          checked: true
+          name: 'Committee of the Whole'
         },
         {
           type: 'Committee Referral',
           committeeId: 203,
-          name: 'Business, Consumer & Regulatory Affairs',
-          checked: true
+          name: 'Business, Consumer & Regulatory Affairs'
         },
         {
           type: 'Committee Referral',
           committeeId: 205,
-          name: 'Education',
-          checked: true
+          name: 'Education'
         },
         {
           type: 'Committee Referral',
           committeeId: 206,
-          name: 'Finance & Revenue',
-          checked: true
+          name: 'Finance & Revenue'
         },
         {
           type: 'Committee Referral',
           committeeId: 207,
-          name: 'Health & Human Services',
-          checked: true
+          name: 'Health & Human Services'
         },
         {
           type: 'Committee Referral',
           committeeId: 208,
-          name: 'Housing & Community Development',
-          checked: true
+          name: 'Housing & Community Development'
         },
         {
           type: 'Committee Referral',
           committeeId: 209,
-          name: 'Judiciary',
-          checked: true
+          name: 'Judiciary'
         },
         {
           type: 'Committee Referral',
           committeeId: 211,
-          name: 'Transportation & Environment',
-          checked: true
+          name: 'Transportation & Environment'
         },
         {
           type: 'Committee Referral',
           committeeId: 210,
-          name: 'None',
-          checked: true
+          name: 'None'
         }
       ],
       [
         {
           type: 'Sponsor',
-          id: 'sponsorAlexanderFilter',
-          name: 'Yvette Alexander',
-          checked: true
+          sponsorId: 230,
+          name: 'Yvette Alexander'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorAllenFilter',
-          name: 'Charles Allen',
-          checked: true
+          sponsorId: 239,
+          name: 'Charles Allen'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorBondsFilter',
-          name: 'Anita Bonds',
-          checked: true
+          sponsorId: 231,
+          name: 'Anita Bonds'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorChehFilter',
-          name: 'Mary Cheh',
-          checked: true
+          sponsorId: 232,
+          name: 'Mary Cheh'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorEvansFilter',
-          name: 'Jack Evans',
-          checked: true
+          sponsorId: 233,
+          name: 'Jack Evans'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorGrossoFilter',
-          name: 'David Grosso',
-          checked: true
+          sponsorId: 234,
+          name: 'David Grosso'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorMayFilter',
-          name: 'LaRuby May',
-          checked: true
+          sponsorId: 245,
+          name: 'LaRuby May'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorMcDuffieFilter',
-          name: 'Kenyan McDuffie',
-          checked: true
+          sponsorId: 235,
+          name: 'Kenyan McDuffie'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorMendelsonFilter',
-          name: 'Phil Mendelson',
-          checked: true
+          sponsorId: 237,
+          name: 'Phil Mendelson'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorNadeauFilter',
-          name: 'Brianne Nadeau',
-          checked: true
+          sponsorId: 240,
+          name: 'Brianne Nadeau'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorOrangeFilter',
-          name: 'Vincent Orange',
-          checked: true
+          sponsorId: 236,
+          name: 'Vincent Orange'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorSilvermanFilter',
-          name: 'Elissa Silverman',
-          checked: true
+          sponsorId: 238,
+          name: 'Elissa Silverman'
         },
         {
           type: 'Sponsor',
-          id: 'sponsorToddFilter',
-          name: 'Brandon Todd',
-          checked: true
+          sponsorId: 244,
+          name: 'Brandon Todd'
         }
       ],
       [
         {
           type: 'Co-Sponsor',
-          id: 'coAlexanderFilter',
-          name: 'Yvette Alexander',
-          checked: true
+          cosponsorId: 230,
+          name: 'Yvette Alexander'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coAllenFilter',
-          name: 'Charles Allen',
-          checked: true
+          cosponsorId: 239,
+          name: 'Charles Allen'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coBondsFilter',
-          name: 'Anita Bonds',
-          checked: true
+          cosponsorId: 231,
+          name: 'Anita Bonds'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coChehFilter',
-          name: 'Mary Cheh',
-          checked: true
+          cosponsorId: 232,
+          name: 'Mary Cheh'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coEvansFilter',
-          name: 'Jack Evans',
-          checked: true
+          cosponsorId: 233,
+          name: 'Jack Evans'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coGrossoFilter',
-          name: 'David Grosso',
-          checked: true
+          cosponsorId: 234,
+          name: 'David Grosso'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coMayFilter',
-          name: 'LaRuby May',
-          checked: true
+          cosponsorId: 245,
+          name: 'LaRuby May'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coMcDuffieFilter',
-          name: 'Kenyan McDuffie',
-          checked: true
+          cosponsorId: 235,
+          name: 'Kenyan McDuffie'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coMendelsonFilter',
-          name: 'Phil Mendelson',
-          checked: true
+          cosponsorId: 237,
+          name: 'Phil Mendelson'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coNadeauFilter',
-          name: 'Brianne Nadeau',
-          checked: true
+          cosponsorId: 240,
+          name: 'Brianne Nadeau'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coOrangeFilter',
-          name: 'Vincent Orange',
-          checked: true
+          cosponsorId: 236,
+          name: 'Vincent Orange'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coSilvermanFilter',
-          name: 'Elissa Silverman',
-          checked: true
+          cosponsorId: 238,
+          name: 'Elissa Silverman'
         },
         {
           type: 'Co-Sponsor',
-          id: 'coToddFilter',
-          name: 'Brandon Todd',
-          checked: true
+          cosponsorId: 244,
+          name: 'Brandon Todd'
         }
       ]
     ]
@@ -356,7 +319,8 @@
     this.watchFilters = function(bill){
       return (self.activeFilters[0].indexOf(bill.typeId) != -1 &&
       self.activeFilters[1].indexOf(bill.sumStatus) != -1 &&
-      self.committeeFilter(bill) == true)
+      self.committeeFilter(bill) == true &&
+      self.sponsorFilter(bill) == true)
     };
 
     this.committeeFilter = function(bill){
@@ -367,6 +331,26 @@
         }
       })
       return committee;
+    }
+
+    this.sponsorFilter = function(bill){
+      var supportBill = false;
+      var sponsor = false;
+      var cosponsor = false;
+      angular.forEach(bill.sponsorIds, function(cm) {
+        if(self.activeFilters[3].indexOf(cm) != -1) {
+          sponsor = true;
+        }
+      });
+      angular.forEach(bill.cosponsorIds, function(cm) {
+        if(self.activeFilters[4].indexOf(cm) != -1) {
+          cosponsor = true;
+        }
+      });
+      if(sponsor || cosponsor){
+        supportBill = true;
+      };
+      return supportBill;
     }
 
     this.count = function(){

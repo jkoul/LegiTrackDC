@@ -8,11 +8,13 @@
     Legislation Type: <span ng-repeat="filter in billsCtrl.activeFilters[0]">{{filter}}<span ng-if="!$last">, </span></span>
     Legislation Status: <span ng-repeat="filter in billsCtrl.activeFilters[1]">{{filter}}<span ng-if="!$last">, </span></span>
     Committee: <span ng-repeat="filter in billsCtrl.activeFilters[2]">{{filter}}<span ng-if="!$last">, </span></span>
+    Sponsors: <span ng-repeat="filter in billsCtrl.activeFilters[3]">{{filter}}<span ng-if="!$last">, </span></span>
+    Cosponsors: <span ng-repeat="filter in billsCtrl.activeFilters[4]">{{filter}}<span ng-if="!$last">, </span></span>
   </div>
   <div class="filters-accordion animate-show ng-hide">
     <uib-accordion close-others="false">
       <uib-accordion-group heading="Legislation Type">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [1,2,3,4,5];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [1,2,3,4,5];">Show All</a> |
         <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [];">Hide All</a>
         <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[0]">
           <label>
@@ -23,7 +25,7 @@
         </div>
       </uib-accordion-group>
       <uib-accordion-group heading="Legislation Status">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [1,2,3];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [1,2,3];">Show All</a> |
         <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [];">Hide All</a>
         <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[1]">
           <label>
@@ -35,7 +37,7 @@
         <h5>Note: Status for contracts, budget modifications, reports, and ceremonial resolutions is unavailable at this time. These items can be found in the "Other" category.</h5>
       </uib-accordion-group>
       <uib-accordion-group heading="Committee Referral">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [203,204,205,206,207,208,209,210,211];">Show All</a>
+        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [203,204,205,206,207,208,209,210,211];">Show All</a> |
         <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [];">Hide All</a>
         <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[2]">
           <label>
@@ -46,6 +48,30 @@
         </div>
       </uib-accordion-group>
       <uib-accordion-group heading="Sponsor">
+        <div>
+          <a ng-href="#/" ng-click="billsCtrl.activeFilters[3] = [230,231,232,233,234,235,236,237,238,239,240,244,245]">Show All Sponsors</a> |
+          <a ng-href="#/" ng-click="billsCtrl.activeFilters[3] = [];">Hide All Sponsors</a>
+        </div>
+        <div>
+          <a ng-href="#/" ng-click="billsCtrl.activeFilters[4] = [230,231,232,233,234,235,236,237,238,239,240,244,245]">Show All Cosponsors</a> |
+          <a ng-href="#/" ng-click="billsCtrl.activeFilters[4] = [];">Hide All Cosponsors</a>
+        </div>
+        <h5>Sponsors:</h5>
+        <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[3]">
+          <label>
+            <input type="checkbox" checklist-model="billsCtrl.activeFilters[3]" checklist-value="filter.sponsorId">
+            <span ng-bind="filter.name"></span>
+          </label>
+          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{sponsorIds: filter.sponsorId}:true) | limitTo:'1'">{{leg.length}}</span>
+        </div>
+        <h5>Cosponsors:</h5>
+        <div class="filter-group" ng-repeat="filter in billsCtrl.filterFields[4]">
+          <label>
+            <input type="checkbox" checklist-model="billsCtrl.activeFilters[4]" checklist-value="filter.cosponsorId">
+            <span ng-bind="filter.name"></span>
+          </label>
+          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{cosponsorIds: filter.cosponsorId}:true) | limitTo:'1'">{{leg.length}}</span>
+        </div>
       </uib-accordion-group>
     </uib-accordion>
   </div>
