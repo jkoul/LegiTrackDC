@@ -2,13 +2,13 @@
   var directives = angular.module('openLimsDirectives',[]);
   directives.directive('legFilters', function(){
     return {
-      templateUrl: "js/views/bills/_leg-filters.html"
+      templateUrl: "js/views/bills/leg-filters.html"
     }
   });
 
   directives.directive('legContainer', function(){
     return {
-      templateUrl: "js/views/bills/_leg-container.html"
+      templateUrl: "js/views/bills/leg-container.html"
     }
   });
 
