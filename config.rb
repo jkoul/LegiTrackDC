@@ -15,7 +15,7 @@ require 'singularitygs'
 
 
 # Set this to the root of your project when deployed:
-http_path = "/LegiTrackDC"
+http_path = "/LegiTrackDC/"
 images_dir = "css/images"
 javascripts_dir = "js"
 
