@@ -1,0 +1,32 @@
+.header {
+  width: 100%;
+  display: block;
+  // background-image: url('/css/images/banner.png');
+  // background-size: cover;
+  background-color: $gray-1;
+  // position: fixed;
+  z-index: 1111;
+  overflow: hidden;
+
+  .title {
+    margin: 0 auto;
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    h1 {
+      @include font-weight-color-size($serif, $bold, $colorPrimary, 4.0);
+      text-shadow: 2px 2px $black;
+      .fa-thumbs-up {
+        color: green;
+      }
+      .fa-thumbs-down {
+        color: $colorPrimary;
+      }
+    }
+    h3 {
+      @include font-weight-color-size($serif, $bold, $colorPrimary, 2);
+      text-transform: uppercase;
+    }
+  }
+}

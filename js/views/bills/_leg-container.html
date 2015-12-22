@@ -1,0 +1,88 @@
+
+<!-- <button type="button" class="btn btn-block btn-danger btn-lg" ng-click="billsCtrl.toggleFilters()">
+  <span ng-if="!billsCtrl.filtersOpen">View Active Filters</span>
+  <span ng-if="billsCtrl.filtersOpen">Hide Active Filters</span>
+</button>
+<div class="active-filters ng-hide">
+  <h4>Active Filters</h4>
+  <p><span class="filter-type">Legislation Type: </span><span ng-repeat="filter in billsCtrl.filterFields[0]"><span ng-show="billsCtrl.activeFilters[0].indexOf(filter.typeId) != -1">{{filter.name}}<span ng-if="!$last">, </span></span></span></p>
+  <p><span class="filter-type">Legislation Status: </span><span ng-repeat="filter in billsCtrl.filterFields[1]"><span ng-show="billsCtrl.activeFilters[1].indexOf(filter.statusId) != -1">{{filter.name}}<span ng-if="!$last">, </span></span></span></p>
+  <p><span class="filter-type">Committee: </span><span ng-repeat="filter in billsCtrl.filterFields[2]"><span ng-show="billsCtrl.activeFilters[2].indexOf(filter.committeeId) != -1">{{filter.name}}<span ng-if="!$last">, </span></span></span></p>
+  <p><span class="filter-type">Sponsors: </span><span ng-repeat="filter in billsCtrl.filterFields[3]"><span ng-show="billsCtrl.activeFilters[3].indexOf(filter.sponsorId) != -1">{{filter.name}}<span ng-if="!$last">, </span></span></span></p>
+  <p><span class="filter-type">Cosponsors: </span><span ng-repeat="filter in billsCtrl.filterFields[4]"><span ng-show="billsCtrl.activeFilters[4].indexOf(filter.cosponsorId) != -1">{{filter.name}}<span ng-if="!$last">, </span></span></p>
+</div> -->
+<div class="bills-container ng-hide">
+  <!-- <input type="text" class="search" placeholder="Search Legislation" name="search-term" ng-model="query"> -->
+  <!-- <div class="simple-filters">
+    <h3>View by Category:</h3>
+    <form name="sortForm" class="options">
+      <label>Committee
+        <input type="checkbox" value="committees">
+      </label>
+      <label>Sponsor
+        <input type="checkbox" value="sponsor">
+      </label>
+      <label>Status
+        <input type="checkbox" value="status">
+      </label>
+      <label>Popularity
+        <input type="checkbox" value="status">
+      </label>
+    </form>
+
+  </div> -->
+  <div class="bills-heading">
+    <h2>DC Council Legislation</h2>
+
+    <div class="results">Showing {{activeBills.length}} of {{billsCtrl.all.length}}</div>
+    <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
+  </div>
+  <div class="legislation" ng-repeat="leg in activeBills = (billsCtrl.all | filter:billsCtrl.watchFilters | filter:billsCtrl.query | orderBy:'-Modified')">
+    <div class="leg-item bill" ng-if="leg.$id.indexOf('B') == 0">
+      <div class="bill-heading">
+        <h3><a ng-href="/#/bills/{{leg.Legislation[0].Title}}">{{leg.Legislation[0].Title}}: {{leg.Legislation[0].ShortTitle}}</a></h3>
+      </div>
+      <div class="bill-detail">
+        <h4>Type: Bill</h4>
+        <p>Introduction Date: <span ng-if="leg.Legislation[0].IntroductionDate != 0">{{leg.Legislation[0].IntroductionDate | date:"longDate"}}</span>
+        <span ng-if="leg.Legislation[0].IntroductionDate == 0">N/A</span></p>
+        <p>Last Update: <span ng-if="leg.Legislation[0].Modified != 0">{{leg.Legislation[0].Modified | date:"longDate"}}</span>
+        <span ng-if="leg.Legislation[0].Modified == 0">N/A</span></p>
+        <p>Status: {{leg.Legislation[0].LegislationStatus}}</p>
+        <!-- <p>Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].Introducer track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+        <p ng-if="bill.Legislation[0].CoSponsor">Co-Sponsor(s): <span ng-repeat='cm in bill.Legislation[0].CoSponsor track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p> -->
+        <p>Committee: <span ng-repeat='cm in leg.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+      </div>
+    </div>
+    <div class="leg-item leg" ng-if="leg.$id.indexOf('B') !== 0">
+      <div class="bill-heading">
+        <h3><a ng-href="/#/bills/{{leg.$id}}">{{leg.$id}}: {{leg.ShortTitle}}</a></h3>
+      </div>
+      <div class="bill-detail">
+        <h4>Type: {{leg.typeDetail}}</h4>
+        <p>Introduction Date:
+          <span ng-if="leg.IntroductionDate != 0">{{leg.IntroductionDate | date:"longDate"}}</span>
+          <span ng-if="leg.IntroductionDate == 0">N/A</span></p>
+        <p>Last Update:
+          <span ng-if="leg.Modified != 0">{{leg.Modified | date:"longDate"}}</span>
+          <span ng-if="leg.Modified == 0">N/A</span>
+        </p>
+      </div>
+      <!-- <div>
+        <span>Sponsor(s):</span>
+        <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'primary'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      </div>
+      <div>
+        <span>Co-Sponsor(s):</span>
+        <span ng-repeat="sponsor in leg.sponsors | filter:{$: 'cosponsor'}">{{sponsor.name}}<span ng-if="!$last">, </span></span>
+      </div> -->
+      <!-- <span ng-repeat="update in leg.actions | filter:{$: 'committee'}">
+        <p>Committee: {{update.related_entities[0].name}}</p>
+      </span> -->
+    </div>
+    <div class="votes">
+      <span class="vote-item"><i class="fa fa-thumbs-up" ng-click="billsCtrl.upvote(leg)"></i>{{leg.score.supporting}}</span>
+      <span class="vote-item"><i class="fa fa-thumbs-down" ng-click="billsCtrl.downvote(leg)"></i>{{leg.score.opposing}}</span>
+    </div>
+  </div>
+</div> <!-- .bills-container -->

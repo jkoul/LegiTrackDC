@@ -2,6 +2,7 @@
 <html lang="en" ng-app="openlims">
 <head>
   <meta charset="UTF-8">
+  <base href="/">
   <title>LegiTrack DC</title>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
@@ -17,79 +18,47 @@
   <!-- <script src="js/controllers/update.js"></script> -->
   <script src="js/routes.js"></script>
   <script src="js/services/bill.js"></script>
+  <script src="js/directives/leg-filters.js"></script>
   <script src="js/app.js"></script>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <header>
+  <header class="header">
     <div class="title">
-      <h1>LegiTrack DC</h1>
-      <!-- <h2>DC's Legislative Portal Reimagined</h2> -->
+      <h1><i class="fa fa-thumbs-up"></i> LegiTrack DC <i class="fa fa-thumbs-down"></i></h1>
+      <h3>DC's Interactive Legislative Portal</h3>
+    </div>
+    <div class="nav-menu">
+      <ul>
+        <li><a ng-href="#/">Legislation</a></li>
+        <!-- <li><a ng-href="#">Votes</a></li> -->
+        <!-- <li>Browse Legislation &#9660;
+          <ul class="dropdown">
+            <li><a ng-href="#/bills" href="">View Bills</a></li>
+            <li><a ng-href="#/resolutions">View Resolutions</a></li>
+            <li><a ng-href="#/other">View Other</a></li>
+          </ul>
+        </li> -->
+        <li><a ng-href="#/about">About</a></li>
+        <!-- <li><a href="/about"></a></li> -->
+        <!-- <li>
+
+        </li> -->
+      </ul>
     </div>
   </header>
-  <nav>
-    <ul>
-      <li><a ng-href="#/">View All</a></li>
-      <li>Browse Legislation &#9660;
-        <ul class="dropdown">
-          <li><a ng-href="#/bills" href="">View Bills</a></li>
-          <li><a ng-href="#/resolutions">View Resolutions</a></li>
-          <li><a ng-href="#/other">View Other</a></li>
-        </ul>
-      </li>
-      <li><a ng-href="#/about">About LegiTrackDC</a></li>
-      <!-- <li><a href="/about"></a></li> -->
-      <li>
-        <input type="text" class="search" placeholder="Search Legislation" name="search-term" ng-model="query">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </li>
-    </ul>
-  </nav>
 
 
-  <div class="container">
+  <div class="main-container">
     <div ng-view id="pages"></div>
 
-    <!-- <div class="filters-detail">
-      <div id="sponsor">
-        <h2>Browse by Sponsor</h2>
-        <ul>
-          <li>Phil Mendelson (Chair)</li>
-          <li>Vincent Orange (At-Large)</li>
-          <li>Anita Bonds (At-Large)</li>
-          <li>David Grosso (At-Large)</li>
-          <li>Elissa Silverman (At-Large)</li>
-          <li>Brianne Nadeau (Ward 1)</li>
-          <li>Jack Evans (Ward 2)</li>
-          <li>Mary Cheh (Ward 3)</li>
-          <li>Brandon Todd (Ward 4)</li>
-          <li>Kenyan McDuffie (Ward 5)</li>
-          <li>Charles Allen (Ward 6)</li>
-          <li>Yvette Alexander (Ward 7)</li>
-          <li>LaRuby May (Ward 8)</li>
-        </ul>
-      </div>
-      <div id="status">
-        <h2>Browse by Status</h2>
-      </div>
-      <div id="committees">
-        <h2>Browse by Committee</h2>
-          <ul>
-            <li>Committee of the Whole</li>
-            <li>Business, Consumer &amp; Regulatory Affairs</li>
-            <li>Education</li>
-            <li>Finance &amp; Revenue</li>
-            <li>Health &amp; Human Services</li>
-            <li>Housing &amp; Community Development</li>
-            <li>Judiciary</li>
-            <li>Transportation &amp; the Environment</li>
-          </ul>
-      </div>
-    </div> -->
   </div>
+
+  <footer>
+
+  </footer>
 </body>
 </html>

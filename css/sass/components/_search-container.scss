@@ -1,0 +1,37 @@
+.search-form {
+  display: inline-block;
+  vertical-align: middle;
+  .search {
+    font-size: 1.5em;
+    color: darken($colorPrimary, 10%) !important;
+    padding-left: 5px;
+    border: 1px solid $colorPrimary;
+    text-align: center;
+  }
+  .search-button {
+    display: inline-block;
+    vertical-align: middle;
+    width: auto;
+
+    button {
+      font-size: 1.5em;
+      height: 1.8em;
+      background: $colorSecondary;
+
+      &:hover {
+        background: $gray-4;
+      }
+      &:focus {
+        outline: 0;
+      }
+
+      i {
+        color: $colorPrimary;
+
+        &:hover {
+          color: darken($colorPrimary, 15%);
+        }
+      }
+    }
+  }
+}

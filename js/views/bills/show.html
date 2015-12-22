@@ -16,8 +16,8 @@
 <h2 class="show-heading"><a ng-href="/#/bills/{{showBillCtrl.bill.Legislation[0].Title}}">{{showBillCtrl.bill.Legislation[0].Title}}: {{showBillCtrl.bill.Legislation[0].ShortTitle}}</a></h2>
 
 <div class="votes votes-show">
-  <span><i class="fa fa-thumbs-up" ng-click="showBillCtrl.upvote(showBillCtrl.bill)"></i>{{showBillCtrl.bill.score.supporting}}</span>
-  <span><i class="fa fa-thumbs-down" ng-click="showBillCtrl.downvote(showBillCtrl.bill)"></i>{{showBillCtrl.bill.score.opposing}}</span>
+  <span class="vote-item"><i class="fa fa-thumbs-up" ng-click="showBillCtrl.upvote(showBillCtrl.bill)"></i>{{showBillCtrl.bill.score.supporting}}</span>
+  <span class="vote-item"><i class="fa fa-thumbs-down" ng-click="showBillCtrl.downvote(showBillCtrl.bill)"></i>{{showBillCtrl.bill.score.opposing}}</span>
 </div>
 
 <div class="show-tabs">
@@ -45,10 +45,12 @@
     </uib-tab>
     <uib-tab ng-if="showBillCtrl.bill.Hearing" heading="Committee Hearing">
       <div class="show-tabs-section bill-hearing-info">
-        <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
-        <p>Hearing Date: {{showBillCtrl.bill.Hearing[0].HearingDate | date:"longDate"}}</p>
-        <iframe scrolling="no" style="border:0" width="480" height="460" id="GranicusFlashPlayerFrame" src={{showBillCtrl.bill.Hearing[0].HearingDetails}}></iframe>
-        <object type="application/pdf" data="http://lims.dccouncil.us/Download/{{showBillCtrl.bill.Hearing[0].AttachmentPath[0].RelativePath}}/{{showBillCtrl.bill.Hearing[0].AttachmentPath[0].Name}}" width="100%" height="800px"></object>
+        <div ng-repeat="hearing in showBillCtrl.bill.Hearing">
+          <p>Committee: <span ng-repeat='cm in showBillCtrl.bill.Legislation[0].CommitteeReferral track by $index'>{{cm.Name}}<span ng-if="!$last">, </span></span></p>
+          <p>Hearing Date: {{hearing.HearingDate | date:"longDate"}}</p>
+          <iframe scrolling="no" style="border:0" width="480" height="460" id="GranicusFlashPlayerFrame" src={{hearing.HearingDetails}}></iframe>
+          <object type="application/pdf" data="http://lims.dccouncil.us/Download/{{hearing.AttachmentPath[0].RelativePath}}/{{hearing.AttachmentPath[0].Name}}" width="100%" height="800px"></object>
+        </div>
       </div>
     </uib-tab>
     <uib-tab ng-if="showBillCtrl.bill.ComiteeMarkup" heading="Committee Action">

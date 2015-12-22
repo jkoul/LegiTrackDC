@@ -1,20 +1,24 @@
 (function() {
   app = angular.module("openlimsControllers",['ngRoute']);
-  app.controller("billsController", ['OpenStates', 'Vote', 'Legislation', function(OpenStates, Vote, Legislation){
+  app.controller("billsController", ['$location', '$uibModal', 'OpenStates', 'Vote', 'Legislation', function($location, $uibModal, OpenStates, Vote, Legislation){
     this.filters = 0;
     this.filtersOpen = false;
+    this.leg = 0;
+    this.legOpen = false;
     this.activeFilters = [
       [1,2,3,4,5],
-      [1,2,3],
+      [100,110,120],
       [203,204,205,206,207,208,209,210,211],
-      [230,231,232,233,234,235,236,237,238,239,240,244,245],
+      [230,231,232,233,234,235,236,237,238,239,240,244,245, 0],
       [230,231,232,233,234,235,236,237,238,239,240,244,245]
     ];
     var self=this
     this.all = Legislation.query();
         this.all.$loaded().then(function($response, $Vote){
           angular.forEach($response, function(b, $Vote){
-            self.getType(b);
+            angular.extend(b, {'sponsorIds': b.filters[3]});
+            angular.extend(b, {'cosponsorIds': b.filters[4]});
+            $('.load-note').hide();
             Vote.get(b);
           });
           console.log($response);
@@ -22,310 +26,215 @@
         });
 
     this.filterFields = [
-      [
+      { name: 'Legislation Type',
+        activeField: 0,
+        values: [
         {
-          type: 'Legislation Type',
-          typeId: 1,
+          Id: 1,
           name: 'Bills',
         },
         {
-          type: 'Legislation Type',
-          typeId: 2,
+          Id: 2,
           name: 'Resolutions'
         },
         {
-          type: 'Legislation Type',
-          typeId: 3,
+          Id: 3,
           name: 'Contracts'
         },
         {
-          type: 'Legislation Type',
-          typeId: 4,
+          Id: 4,
           name: 'Budget Modifications'
         },
         {
-          type: 'Legislation Type',
-          typeId: 5,
+          Id: 5,
           name: 'Reports'
         }
-      ],
-      [
+      ]},
+      { name: 'Status',
+        activeField: 1,
+        values: [
         {
-          type: 'Legislation Status',
-          statusId: 1,
+          Id: 100,
           name: 'Under Council Review'
         },
         {
-          type: 'Legislation Status',
-          statusId: 2,
+          Id: 110,
           name: 'Enacted'
         },
         {
-          type: 'Legislation Status',
-          statusId: 3,
+          Id: 120,
           name: 'Other'
         }
-      ],
-      [
+      ]},
+      { name: 'Committee Referral',
+        activeField: 2,
+        values: [
         {
-          type: 'Committee Referral',
-          committeeId: 204,
+          Id: 204,
           name: 'Committee of the Whole'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 203,
-          name: 'Business, Consumer & Regulatory Affairs'
+          Id: 203,
+          name: 'Business, Consumer & Reg. Affairs'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 205,
+          Id: 205,
           name: 'Education'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 206,
+          Id: 206,
           name: 'Finance & Revenue'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 207,
+          Id: 207,
           name: 'Health & Human Services'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 208,
+          Id: 208,
           name: 'Housing & Community Development'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 209,
+          Id: 209,
           name: 'Judiciary'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 211,
+          Id: 211,
           name: 'Transportation & Environment'
         },
         {
-          type: 'Committee Referral',
-          committeeId: 210,
+          Id: 210,
           name: 'None'
         }
-      ],
-      [
+      ]},
+      { name: 'Sponsor/CoSponsor',
+        activeField: 3,
+        values: [
+        [
         {
-          type: 'Sponsor',
-          sponsorId: 230,
+          Id: 230,
           name: 'Yvette Alexander'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 239,
+          Id: 239,
           name: 'Charles Allen'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 231,
+          Id: 231,
           name: 'Anita Bonds'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 232,
+          Id: 232,
           name: 'Mary Cheh'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 233,
+          Id: 233,
           name: 'Jack Evans'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 234,
+          Id: 234,
           name: 'David Grosso'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 245,
+          Id: 245,
           name: 'LaRuby May'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 235,
+          Id: 235,
           name: 'Kenyan McDuffie'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 237,
+          Id: 237,
           name: 'Phil Mendelson'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 240,
+          Id: 240,
           name: 'Brianne Nadeau'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 236,
+          Id: 236,
           name: 'Vincent Orange'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 238,
+          Id: 238,
           name: 'Elissa Silverman'
         },
         {
-          type: 'Sponsor',
-          sponsorId: 244,
+          Id: 244,
           name: 'Brandon Todd'
+        },
+        {
+          Id: 0,
+          name: 'No Sponsor'
         }
       ],
       [
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 230,
+          Id: 230,
           name: 'Yvette Alexander'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 239,
+          Id: 239,
           name: 'Charles Allen'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 231,
+          Id: 231,
           name: 'Anita Bonds'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 232,
+          Id: 232,
           name: 'Mary Cheh'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 233,
+          Id: 233,
           name: 'Jack Evans'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 234,
+          Id: 234,
           name: 'David Grosso'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 245,
+          Id: 245,
           name: 'LaRuby May'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 235,
+          Id: 235,
           name: 'Kenyan McDuffie'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 237,
+          Id: 237,
           name: 'Phil Mendelson'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 240,
+          Id: 240,
           name: 'Brianne Nadeau'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 236,
+          Id: 236,
           name: 'Vincent Orange'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 238,
+          Id: 238,
           name: 'Elissa Silverman'
         },
         {
-          type: 'Co-Sponsor',
-          cosponsorId: 244,
+          Id: 244,
           name: 'Brandon Todd'
         }
       ]
+      ]}
     ]
-
-    this.getType = function(bill){
-      var id = bill.$id.split("-");
-      switch(id[0]){
-        case 'B21':
-          type = 'Bill';
-          typeId = 1;
-          typeDetail = 'Bill';
-          break;
-        case 'PR21':
-          type = 'Resolution';
-          typeId = 2;
-          typeDetail = 'Resolution';
-          break;
-        case 'CER21':
-          type = 'Resolution';
-          typeId = 2;
-          typeDetail = 'Ceremonial Resolution';
-          break;
-        case 'CA21':
-          type = 'Contract';
-          typeId = 3;
-          typeDetail = 'Contract';
-          break;
-        case 'GBM21':
-          type = 'Budget Modification';
-          typeId = 4;
-          typeDetail = 'Grant Budget Modification';
-          break;
-        case 'REPROG21':
-          type = 'Budget Modification';
-          typeId = 4;
-          typeDetail = 'Budget Reallocation';
-          break;
-        case 'HFA21':
-          type = 'Budget Modification';
-          typeId = 4;
-          typeDetail = 'Housing Finance Agency Bond Issuance'
-          break;
-        case 'AU21':
-          type = 'Report';
-          typeId = 5;
-          typeDetail = 'Audit Report';
-          break;
-        case 'RC21':
-          type = 'Report';
-          typeId = 5;
-          typeDetail = 'Other Report';
-          break;
-        case 'IG21':
-          type = 'Report';
-          typeId = 5;
-          typeDetail = 'Inspector General Report';
-          break;
-        case 'CFO21':
-          type = 'Report';
-          typeId = 5;
-          typeDetail = 'Chief Financial Officer Report';
-          break;
-        default:
-          type = 'Other';
-          typeId = 5;
-          typeDetail = 'Other';
-      }
-      angular.extend(bill, {'type': type, 'typeId': typeId, 'typeDetail': typeDetail});
-    };
 
 
     this.watchFilters = function(bill){
-      return (self.activeFilters[0].indexOf(bill.typeId) != -1 &&
-      self.activeFilters[1].indexOf(bill.sumStatus) != -1 &&
+      return (self.activeFilters[0].indexOf(bill.filters[0]) != -1 &&
+      self.activeFilters[1].indexOf(bill.filters[1]) != -1 &&
       self.committeeFilter(bill) == true &&
       self.sponsorFilter(bill) == true)
     };
 
     this.committeeFilter = function(bill){
       var committee = false;
-      angular.forEach(bill.activeCommittees, function(cmte) {
+      angular.forEach(bill.filters[2], function(cmte) {
         if(self.activeFilters[2].indexOf(cmte) != -1) {
           committee = true;
         }
@@ -337,12 +246,12 @@
       var supportBill = false;
       var sponsor = false;
       var cosponsor = false;
-      angular.forEach(bill.sponsorIds, function(cm) {
+      angular.forEach(bill.filters[3], function(cm) {
         if(self.activeFilters[3].indexOf(cm) != -1) {
           sponsor = true;
         }
       });
-      angular.forEach(bill.cosponsorIds, function(cm) {
+      angular.forEach(bill.filters[4], function(cm) {
         if(self.activeFilters[4].indexOf(cm) != -1) {
           cosponsor = true;
         }
@@ -353,9 +262,61 @@
       return supportBill;
     }
 
-    this.count = function(){
-      return this.all.length;
+    this.resetFilters = function (){
+      self.activeFilters = [
+        [1,2,3,4,5],
+        [100,110,120],
+        [203,204,205,206,207,208,209,210,211],
+        [230,231,232,233,234,235,236,237,238,239,240,244,245, 0],
+        [230,231,232,233,234,235,236,237,238,239,240,244,245]
+      ];
+    }
+
+
+    this.toggleFilters = function(){
+      $('.filters').toggleClass('ng-hide');
+      self.filters ++;
+      if(self.filters % 2 == 1){
+        self.filtersOpen = true;
+      } else {
+        self.filtersOpen = false;
+      }
+    }
+
+    this.toggleLeg = function(){
+      $('.bills-container').toggleClass('ng-hide');
+      self.leg ++;
+      if(self.leg % 2 == 1){
+        self.legOpen = true;
+      } else {
+        self.legOpen = false;
+      }
+    }
+
+    this.toggleAll = function(){
+      self.toggleFilters();
+      self.toggleLeg();
+    }
+
+    this.searchResult = function($item) {
+      self.$item = $item;
+      $location.path('/bills/' + self.$item.$id);
+    }
+
+    this.showModal = false;
+    this.toggleModal = function(){
+      $('.modal').toggleClass('ng-hide');
+        // self.showModal = !self.showModal;
     };
+
+    this.setCategory = function(filter, item) {
+      event.preventDefault();
+      self.resetFilters();
+      self.activeFilters[filter.activeField] = [item.Id];
+      if(!(self.legOpen)){
+        self.toggleLeg();
+      }
+    }
 
     this.upvote = function(bill){
       if(!bill.upvote) {
@@ -381,19 +342,45 @@
       }
     }
 
-    this.toggleFilters = function(){
-      $('.filters-accordion').toggleClass('ng-hide');
-      // self.filters ++;
-      // if(self.filters % 2 == 1){
-      //   self.filtersOpen = true;
-      // } else {
-      //   self.filtersOpen = false;
-      // }
+    this.updateUrl = function(){
+      var type = null;
+      var status = null;
+      var committee = null;
+      var sponsor = null;
+      var cosponsor = null;
+      console.log(self.activeFilters[0])
+      if (self.activeFilters[0] == [] || self.activeFilters[0] == [1,2,3,4,5]) {
+        type = null;
+      } else {
+        type = self.activeFilters[0];
+      };
+      console.log(self.activeFilters[1])
+      if(self.activeFilters[1] == [] || self.activeFilters[1] == [100,110,120]) {
+        status = null;
+      } else {
+        status = self.activeFilters[1];
+      };
+      console.log(self.activeFilters[2])
+      if(self.activeFilters[2] == [] || self.activeFilters[2] == [203,204,205,206,207,208,209,210,211]) {
+        committee = null;
+      } else {
+        committee = self.activeFilters[2];
+      };
+      console.log(self.activeFilters[3])
+      if(self.activeFilters[3] == [] || self.activeFilters[3] == [230,231,232,233,234,235,236,237,238,239,240,244,245, 0]) {
+        sponsor = null;
+      } else {
+        sponsor = self.activeFilters[3];
+      };
+      console.log(self.activeFilters[4])
+      if(self.activeFilters[4] == [] || self.activeFilters[4] == [230,231,232,233,234,235,236,237,238,239,240,244,245]) {
+        cosponsor = null;
+      } else {
+        cosponsor = self.activeFilters[4];
+      };
+      $location.search({'type': type, 'status': status, 'committee': committee, 'sponsor': sponsor, 'cosponsor': cosponsor});
     }
-
-
   }]);
-
 
   app.controller("showBillController", ['$routeParams', '$location','Legislation', 'Vote', function($routeParams, $location, Legislation, Vote){
     this.bill = Legislation.get({$id: $routeParams.id});
@@ -424,5 +411,10 @@
         bill.upvote = false;
       }
     }
+
+    // this.getBill = function(e){
+    //   e.preventDefault();
+    //
+    // }
   }]);
 })()

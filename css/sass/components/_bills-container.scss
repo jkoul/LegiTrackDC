@@ -1,0 +1,42 @@
+.bills-container {
+
+  .bills-heading{
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .legislation {
+    width: 90%;
+    margin: 1em auto;
+    display: block;
+    @include billDivStyle();
+
+  }
+
+  @include breakpoint($medium-large) {
+    float: left;
+    width: 700px;
+
+    .active-filters {
+      @include billDivStyle;
+      text-align: justify;
+      padding: 10px;
+
+      h4 {
+        text-align: center;
+      }
+      .filter-type {
+        font-weight: 700;
+      }
+    }
+
+    .bills-heading {
+      width: 90%;
+      margin: 0 auto;
+
+      .load-note {
+        font-style: italic;
+      }
+    }
+  }
+}

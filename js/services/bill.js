@@ -24,8 +24,8 @@
       query: function(){return billVotes;},
       get: function(bill, cb) {
         var found = $firebaseObject(votesRef.child(bill.$id));
-        if(typeof cb == "function") cb(found);
-        if(!found) {
+        if(found) {
+        } else {
           found = {
             supporting: 0,
             opposing: 0

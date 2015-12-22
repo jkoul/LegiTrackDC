@@ -1,0 +1,42 @@
+
+
+<!-- '<div class="modal-header">' +
+  '<h3 class="modal-title">Select by {{filter.name}}</h3>' +
+    '</div>' +
+    '<div class="modal-body">' +
+      '<div class="row" ng-repeat="child in filter.values">' +
+        '<a href="#" ng-click="$event.preventDefault(); billsCtrl.activeFilters[{{filter.activeField}}] = [child.Id]">{{filter.name}}</a>' +
+        '<span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{Id[{{filter.activeField}}]: child.Id}:true) | limitTo:1">{{leg.length}}</span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="modal-footer">' +
+      '<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>' +
+    '</div>' -->
+
+
+    <div class="simple-filters-container">
+      <h3>View by Category:</h3>
+      <div class="simple-filters">
+        <div class="filter-categories" ng-repeat="filter in billsCtrl.filterFields">
+          <button type="button" ng-click="toggleModal()">{{filter.name}}</button>
+          <div class="modal fade" ng-show="billsCtrl.showModal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+                  <h3 class="modal-title">Choose a {{filter.name}}</h3>
+                </div>
+                <div class="modal-body">
+                  <div class="row" ng-repeat="item in filter.values">
+                    <a href="#" ng-click="setCategory(filter, item)">{{item.name}}</a>
+                    <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{filters: item.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
