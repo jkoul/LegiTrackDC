@@ -5,7 +5,7 @@
   .module("legitrackdc", [
     'ui.router',
     'ngResource',
-    // in-app dependencies
+    // add in-app dependencies
     'ui.bootstrap',
     'checklist-model'
   ])
