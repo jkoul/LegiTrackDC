@@ -1,0 +1,123 @@
+// @file
+// Custom sass mixins
+//
+// Define the custom mixins for your project here.
+// http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#defining_a_mixin
+
+// Makes an element visually hidden, but accessible.
+// @see http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+@mixin element-invisible {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+// Turns off the element-invisible effect.
+@mixin element-invisible-off {
+  position: static !important;
+  clip: auto;
+  height: auto;
+  width: auto;
+  overflow: auto;
+}
+
+// Makes an element visually hidden by default, but visible when focused.
+@mixin element-focusable {
+  @include element-invisible;
+
+  &:active,
+  &:focus {
+    @include element-invisible-off;
+  }
+}
+
+
+//Rem Fallback
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@mixin rem-fallback($property, $values...) {
+  $max: length($values);
+  $pxValues: '';
+  $remValues: '';
+
+  @for $i from 1 through $max {
+    $value: strip-unit(nth($values, $i));
+    $pxValues: #{$pxValues + $value*strip-unit($base-font-size)}px;
+
+    @if $i < $max {
+      $pxValues: #{$pxValues + " "};
+    }
+  }
+
+  @for $i from 1 through $max {
+    $value: strip-unit(nth($values, $i));
+    $remValues: #{$remValues + $value}rem;
+
+    @if $i < $max {
+      $remValues: #{$remValues + " "};
+    }
+  }
+
+  #{$property}: $pxValues;
+  #{$property}: $remValues;
+}
+
+
+//Preferred version of clearfix
+@mixin clearfix(){
+  &:after{
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+//Simple mixin for applying font styles
+@mixin font-weight-color-size($font, $weight, $color, $size) {
+  font-family: $font;
+  font-weight: $weight;
+  color: $color;
+  @include rem-fallback('font-size', $size);
+}
+
+
+
+
+// ************Custom Sass for reuseable styles******************
+
+
+@mixin billDivStyle (){
+  background: #eee;
+  border: 2px groove $colorPrimary;
+  @include rem-fallback('padding-top', .5);
+
+  .leg-item {
+    width: 100%;
+    margin: 0 auto;
+
+    .bill-heading {
+      h3 {
+        @include rem-fallback('margin-top', .5);
+        @include rem-fallback('margin-bottom', 0);
+      }
+      a {
+        text-decoration: none;
+        @include font-weight-color-size($sans, $bold, $colorPrimary, 1.6);
+      }
+    }
+    .bill-detail {
+      p {
+        margin: 0 auto;
+        @include font-weight-color-size($sans, $normal, $gray-1, 1.5)
+      }
+    }
+  }
+  // & p {
+  //   line-height: 1em;
+  //   margin: .5em;
+  // }
+}

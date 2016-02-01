@@ -1,0 +1,88 @@
+.filters {
+
+  .filter-groups {
+    background: #f9f0e8;
+    border: 1px solid $colorPrimary;
+    @include rem-fallback('margin-top', 2);
+
+    h2 {
+      @include font-weight-color-size($serif, $bold, $gray-1, 2.4);
+      text-transform: uppercase;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      border-top: 2px solid #ccc;
+      @include rem-fallback('padding',1);
+      align-items: center;
+
+      h3 {
+        @include font-weight-color-size($serif, $bold, $colorPrimary, 2);
+      }
+
+      h3, .show-hide {
+        margin: 0 10px;
+      }
+
+      h5 {
+        @include rem-fallback('line-height', 1.5);
+        @include rem-fallback('margin-bottom', 1);
+      }
+
+      .filter-items {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-align: left;
+
+        .row {
+          text-align: left;
+          margin: 0 10px;
+          overflow: auto;
+        }
+      }
+
+      .filter-sponsor-items {
+        padding-left: 15px;
+        padding-bottom: 20px;
+        text-align: left;
+
+        .sponsor-filter, .cosponsor-filter {
+          margin-left: 25px;
+          width: 60px;
+          float: left;
+
+          .sponsor-filter-name {
+            text-align: left;
+            margin-left: -15px;
+
+            h5 {
+              width: 60px;
+              display: inline-block;
+            }
+          }
+        }
+
+        .filter-names {
+          float: left;
+        }
+      }
+    }
+  }
+
+
+
+  // .checkbox-item {
+  //   input[type='checkbox'] {
+  //   //  -webkit-appearance:none;
+  //     float: right;
+  //     vertical-align: middle;
+  //     border:2px solid #555;
+  //     &:focus {
+  //       outline: 0;
+  //     }
+  //   }
+  // }
+
+
+}

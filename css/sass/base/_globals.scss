@@ -1,0 +1,23 @@
+* {
+  box-sizing: 'border-box';
+}
+
+// html {
+//   width: 100%;
+// }
+
+body{
+  min-height:100vh;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $colorSecondary;
+  text-align: center;
+  font-family: $sans;
+  font-size: $base-font-size+6;
+  line-height: $base-line-height;
+  @include clearfix;
+}
+
+h1, h2, h3, h4 {
+  font-family: $serif;
+}

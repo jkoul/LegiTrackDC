@@ -1,0 +1,17 @@
+.simple-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .filter-dropdowns {
+    width: 100%;
+
+    .btn-group {
+      width: 100%;
+
+      .btn, .uib-dropdown-menu {
+        width: 100%;
+      }
+    }
+  }
+}

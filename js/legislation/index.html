@@ -1,0 +1,52 @@
+<div class="page-legislation">
+  <div class="search-container">
+    <script type="text/ng-template" id="customTemplate.html">
+      <a>
+          <span>{{match.model.$id}} - {{match.model.ShortTitle}}</span>
+      </a>
+    </script>
+    <form name="bill-num" class="search-form" novalidate>
+      <input ng-if="!billsCtrl.legOpen" type="search" class="search search-billnum" placeholder="Quick Search" ng-model="search.bill" uib-typeahead="leg.$id for leg in billsCtrl.all | filter:$viewValue | limitTo:10" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" typeahead-on-select="billsCtrl.searchResult($item)">
+      <input ng-if="billsCtrl.legOpen" type="text" class="search" placeholder="Search Legislation" ng-model="billsCtrl.query">
+      <div class="no-results" ng-show="noResults">
+        <i class="glyphicon glyphicon-remove"></i> No Results Found
+      </div>
+    </form>
+    <h5>Enter a Keyword or Bill Number</h5>
+  </div>
+  <div ng-show="!(billsCtrl.filtersOpen || billsCtrl.legOpen)">
+    <button type="button" class="btn btn-block btn-primary btn-lg" ng-click="billsCtrl.toggleFilters()">
+      <span>Advanced Search</span>
+    </button>
+    <h5>Choose one or more categories by Legislation Type, Status, Committee or Sponsor/Co-Sponsor.</h5>
+  </div>
+  <div>
+    <button ng-show="!billsCtrl.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="billsCtrl.toggleLeg()">
+      <span ng-if="!billsCtrl.legOpen">Browse Legislation</span>
+      <span ng-if="billsCtrl.legOpen">Back To Main Menu</span>
+    </button>
+    <button ng-show="billsCtrl.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="billsCtrl.toggleFilters()">
+      Back to Main Menu
+    </button>
+  </div>
+  <div class="simple-filters-container" ng-show="!billsCtrl.filtersOpen">
+    <h3>View by Category:</h3>
+    <div class="simple-filters">
+      <div class="filter-dropdowns" ng-repeat="filter in billsCtrl.filterFields">
+        <div class="btn-group" uib-dropdown dropdown-append-to-body uib-keyboard-nav>
+          <button type="button" class="btn btn-default" uib-dropdown-toggle>
+            {{filter.name}} <span class="caret"></span>
+          </button>
+          <ul class="uib-dropdown-menu" role="menu">
+            <div ng-repeat="item in filter.values">
+              <li role="menuitem"><a href="#" ng-click="billsCtrl.setCategory(filter, item)">{{item.name}}</a></li>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <leg-filters></leg-filters>
+  <leg-container></leg-container>
+</div>

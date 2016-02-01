@@ -1,0 +1,39 @@
+.show-heading {
+  a {
+    text-decoration: none;
+    color: $colorPrimary;
+  }
+}
+
+
+
+.show-tabs {
+  width: 90%;
+  margin: 2em auto;
+  border: 2px groove $colorPrimary;
+
+  .nav-tabs {
+    display: inline-flex;
+  }
+  .show-tabs-section {
+    padding: 1em;
+    background: #eee;
+    & h3 span {
+      display: block;
+      color: $colorPrimary;
+    }
+    & p {
+      line-height: 1em;
+      margin: .5em;
+    }
+  }
+  // font-weight: 700;
+  // font-size: 1.2em;
+  // @include billDivStyle();
+}
+
+.votes-show {
+  width: 40%;
+  margin: 0 auto;
+  justify-content: center;
+}

@@ -5,41 +5,43 @@
   .module("legitrackdc", [
     'ui.router',
     'ngResource',
-    // add in-app dependencies
     'ui.bootstrap',
-    'checklist-model'
+    'checklist-model',
+    // add in-app dependencies
+    "legislation"
   ])
   .config([
     "$stateProvider",
+    "$urlRouterProvider",
     "$locationProvider",
-    sceDelegates,
     routerFunction
-  ]);
+  ])
 
-  function sceDelegates($sceDelegateProvider) {
+  .config(function($sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       'http://dc.granicus.com/**',
       'http://lims.dccouncil.us/Download/**',
       'http://208.58.1.36:8080/**'
     ]);
-  };
+  });
 
-  function routerFunction($stateProvider, $locationProvider){
+  function routerFunction($stateProvider, $urlRouterProvider, $locationProvider){
     $locationProvider.html5Mode(true);
+    $urlRouterProvider.otherwise('/');
     $stateProvider
     .state("LegIndex", {
       url: "/",
       templateUrl: 'js/legislation/index.html',
-      controller: 'LegIndexController',
-      controllerAs: 'LegIndexVM',
+      controller: 'legIndexController',
+      controllerAs: 'legIndex',
       reloadOnSearch:false
     })
     .state("LegShow", {
       url: "/legislation/:id",
       templateUrl: 'js/legislation/show.html',
-      controller: 'LegShowController',
-      controllerAs: 'LegShowVM'
+      controller: 'legShowController',
+      controllerAs: 'legShow'
     })
   }
 })()
