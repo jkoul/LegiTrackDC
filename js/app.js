@@ -38,7 +38,7 @@
       reloadOnSearch:false
     })
     .state("LegShow", {
-      url: "/legislation/:id",
+      url: "/:id",
       templateUrl: 'js/legislation/show.html',
       controller: 'legShowController',
       controllerAs: 'legShow'

@@ -1,14 +1,14 @@
-<div class="bills-container">
+<div class="bills-container ng-hide">
   <div class="bills-heading">
     <h2>DC Council Legislation</h2>
 
-    <div class="results">Showing {{legIndex.activeBills.length}} of {{legIndex.all.length}}</div>
+    <div class="results">Showing {{activeBills.length}} of {{legIndex.all.length}}</div>
     <h4 class="load-note">Please be patient: bills may take a few seconds to appear</h4>
   </div>
-  <div class="legislation" ng-repeat="leg in legIndex.all | orderBy:'-Legislation.Modified'">
+  <div class="legislation" ng-repeat="leg in activeBills = (legIndex.all | filter:legIndex.watchFilters | filter:legIndex.query | orderBy:'-Legislation.Modified')">
     <div class="leg-item bill">
       <div class="bill-heading">
-        <h3><a ng-href="/legislation/{{leg.Legislation.LegislationNumber}}">{{leg.Legislation.LegislationNumber}}: {{leg.Legislation.ShortTitle}}</a></h3>
+        <h3><a ng-href="/{{leg.Legislation.LegislationNumber}}">{{leg.Legislation.LegislationNumber}}: {{leg.Legislation.ShortTitle}}</a></h3>
       </div>
       <div class="bill-detail">
         <p>Type: {{leg.Legislation.Subcategory}}</p>

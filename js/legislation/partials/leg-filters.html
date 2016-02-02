@@ -1,86 +1,88 @@
-<div class="filters">
+<div class="filters ng-hide">
   <div class="filter-groups">
     <h2>Filter Legislation</h2>
     <div class="filter-group">
       <h3>Legislation Type</h3>
       <div class="show-hide">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [1,2,3,4,5];">Show All</a> |
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[0] = [];">Hide All</a>
+        <a ng-href="#/" ng-click="legIndex.activeFilters[0] = [1,2,3,4,5];">Show All</a> |
+        <a ng-href="#/" ng-click="legIndex.activeFilters[0] = [];">Hide All</a>
       </div>
       <div class="filter-items">
-        <div class="row" ng-repeat="item in billsCtrl.filterFields[0].values">
-          <input type="checkbox" checklist-change="billsCtrl.updateUrl()" checklist-model="billsCtrl.activeFilters[0]" checklist-value="item.Id">
+        <div class="row" ng-repeat="item in legIndex.filterFields[0].values">
+          <input type="checkbox" checklist-model="legIndex.activeFilters[0]" checklist-value="item.Id">
           <span class="filter-name">{{item.name}}</span>
-          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{filters: item.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+          <span class="badge" ng-repeat="bill in leg = (legIndex.all | filter:{filters: item.Id}:true) | limitTo:'1'">{{leg.length}}</span>
         </div>
       </div>
     </div>
     <div class="filter-group">
       <h3>Legislation Status</h3>
       <div class="show-hide">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [100,110,120];">Show All</a> |
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[1] = [];">Hide All</a>
+        <a ng-href="#/" ng-click="legIndex.activeFilters[1] = [100,110,120];">Show All</a> |
+        <a ng-href="#/" ng-click="legIndex.activeFilters[1] = [];">Hide All</a>
       </div>
       <h5>Note: Status for contracts, budget modifications, reports, and ceremonial resolutions is unavailable at this time. These items can be found in the "Other" category.</h5>
       <div class="filter-items">
-        <div class="row" ng-repeat="filter in billsCtrl.filterFields[1].values">
-          <input type="checkbox" checklist-change="billsCtrl.updateUrl()" checklist-model="billsCtrl.activeFilters[1]" checklist-value="filter.Id">
+        <div class="row" ng-repeat="filter in legIndex.filterFields[1].values">
+          <input type="checkbox" checklist-model="legIndex.activeFilters[1]" checklist-value="filter.Id">
           <span class="filter-name">{{filter.name}}</span>
-          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{filters: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+          <span class="badge" ng-repeat="bill in leg = (legIndex.all | filter:{filters: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
         </div>
       </div>
     </div>
     <div class="filter-group">
       <h3>Committee Referral</h3>
       <div class="show-hide">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [203,204,205,206,207,208,209,210,211];">Show All</a> |
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[2] = [];">Hide All</a>
+        <a ng-href="#/" ng-click="legIndex.activeFilters[2] = [203,204,205,206,207,208,209,210,211];">Show All</a> |
+        <a ng-href="#/" ng-click="legIndex.activeFilters[2] = [];">Hide All</a>
       </div>
       <div class="filter-items">
-        <div class="row" ng-repeat="filter in billsCtrl.filterFields[2].values">
-          <input type="checkbox" checklist-change="billsCtrl.updateUrl()" checklist-model="billsCtrl.activeFilters[2]" checklist-value="filter.Id">
+        <div class="row" ng-repeat="filter in legIndex.filterFields[2].values">
+          <input type="checkbox" checklist-model="legIndex.activeFilters[2]" checklist-value="filter.Id">
           <span>{{filter.name}}</span>
-          <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{filters: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+          <span class="badge" ng-repeat="bill in leg = (legIndex.all | filter:{filters: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
         </div>
       </div>
     </div>
     <div class="row filter-group">
       <h3>Sponsors/Cosponsors</h3>
       <div class="show-hide">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[3] = [230,231,232,233,234,235,236,237,238,239,240,244,245, 0]">Show All Sponsors</a> |
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[3] = [];">Hide All Sponsors</a>
+        <a ng-href="#/" ng-click="legIndex.activeFilters[3] = [230,231,232,233,234,235,236,237,238,239,240,244,245, 0]">Show All Sponsors</a> |
+        <a ng-href="#/" ng-click="legIndex.activeFilters[3] = [];">Hide All Sponsors</a>
       </div>
       <div class="show-hide">
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[4] = [230,231,232,233,234,235,236,237,238,239,240,244,245]">Show All Cosponsors</a> |
-        <a ng-href="#/" ng-click="billsCtrl.activeFilters[4] = [];">Hide All Cosponsors</a>
+        <a ng-href="#/" ng-click="legIndex.activeFilters[4] = [230,231,232,233,234,235,236,237,238,239,240,244,245]">Show All Cosponsors</a> |
+        <a ng-href="#/" ng-click="legIndex.activeFilters[4] = [];">Hide All Cosponsors</a>
       </div>
       <div class="filter-sponsor-items">
         <div class="sponsor-filter-container">
           <div class="sponsor-filter">
             <h5 class="sponsor-filter-name">Sponsor</h5>
-            <div class="row" ng-repeat="filter in billsCtrl.filterFields[3].values[0]">
-              <input type="checkbox" checklist-change="billsCtrl.updateUrl()" checklist-model="billsCtrl.activeFilters[3]" checklist-value="filter.Id">
-              <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{sponsorIds: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+            <div class="row" ng-repeat="filter in legIndex.filterFields[3].values[0]">
+              <input type="checkbox" checklist-model="legIndex.activeFilters[3]" checklist-value="filter.Id">
+              <span class="badge" ng-repeat="bill in leg = (legIndex.all | filter:{sponsorIds: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
             </div>
           </div>
           <div class="cosponsor-filter">
             <h5 class="sponsor-filter-name">Cosponsor</h5>
-            <div class="row" ng-repeat="filter in billsCtrl.filterFields[3].values[1]">
-              <input type="checkbox" checklist-change="billsCtrl.updateUrl()" checklist-model="billsCtrl.activeFilters[4]" checklist-value="filter.Id">
-              <span class="badge" ng-repeat="bill in leg = (billsCtrl.all | filter:{cosponsorIds: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
+            <div class="row" ng-repeat="filter in legIndex.filterFields[3].values[1]">
+              <input type="checkbox" checklist-model="legIndex.activeFilters[4]" checklist-value="filter.Id">
+              <span class="badge" ng-repeat="bill in leg = (legIndex.all | filter:{cosponsorIds: filter.Id}:true) | limitTo:'1'">{{leg.length}}</span>
             </div>
           </div>
             <div class="filter-names">
               <h5 class="sponsor-filter-name">Legislator</h5>
-              <div class="row" ng-repeat="filter in billsCtrl.filterFields[3].values[0]">{{filter.name}}</div>
+              <div class="row" ng-repeat="filter in legIndex.filterFields[3].values[0]">{{filter.name}}</div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div>
-    <button type="button" class="btn btn-block btn-danger btn-lg" ng-click="billsCtrl.toggleAll()">View Results
-      <!-- <span ng-if="!(billsCtrl.activeFilters[0] == [] || billsCtrl.activeFilters[1] == [] || billsCtrl.activeFilters[2] == [] || !(billsCtrl.activeFilters[3] != [] || billsCtrl.activeFilters[4] != [])">View Results</span> -->
+      <!-- <span ng-if="!(legIndex.activeFilters[0] == [] || legIndex.activeFilters[1] == [] || legIndex.activeFilters[2] == [] || !(legIndex.activeFilters[3] != [] || legIndex.activeFilters[4] != [])"></span> -->
+      <button type="button" class="btn btn-block btn-danger btn-lg" ng-click="legIndex.toggleAll()">
+View Results
     </button>
+
   </div>
 </div>

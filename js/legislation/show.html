@@ -1,0 +1,92 @@
+<div class="bill-detail-container">
+  <h2 class="show-heading"><a ng-href="/#/bills/{{legShow.bill.Legislation.LegislationNumber}}">{{legShow.bill.Legislation.LegislationNumber}}: {{legShow.bill.Legislation.ShortTitle}}</a></h2>
+
+  <div class="votes votes-show">
+    <span class="vote-item"><i class="fa fa-thumbs-up" ng-click="legShow.upvote(legShow.bill)"></i>{{legShow.bill.score.supporting}}</span>
+    <span class="vote-item"><i class="fa fa-thumbs-down" ng-click="legShow.downvote(egShow.bill)"></i>{{legShow.bill.score.opposing}}</span>
+  </div>
+  <div class="show-tabs">
+    <uib-tabset>
+      <uib-tab heading="Legislation Overview">
+        <div class="show-tabs-section bill-detail">
+          <h3><span>{{legShow.bill.Legislation.LegislationNumber}}</span>
+            <span>{{legShow.bill.Legislation.ShortTitle}}</span></h3>
+          <h4>Type: Bill</h4>
+          <p>Introduction Date: {{legShow.bill.Legislation.IntroductionDate | date:"longDate"}}</p>
+          <p>Last Update: {{legShow.bill.Legislation.Modified | date:"longDate"}}</p>
+          <p>Status: {{legShow.bill.Legislation.LegislationStatus}}</p>
+          <p>{{legShow.bill.Legislation.AdditionalInformation}}</p>
+          <p>Sponsor(s): {{legShow.bill.Legislation.Introducer}}</p>
+          <p ng-if="legShow.bill.Legislation.CoSponsor">Co-Sponsor(s): {{legShow.bill.Legislation.CoSponsor}}</p>
+          <p>Committee Referral(s): {{legShow.bill.Legislation.CommitteeReferral}}</p>
+          <p ng-if="legShow.bill.Legislation.CommitteeReferralComments !=''">Committee Referral(s) for Comments: {{legShow.bill.Legislation.CommitteeReferralComments}}</p>
+          <div>
+            <h4 class="text-header">Bill Text</h4>
+            <a class="btn btn-danger" ng-href="{{legShow.bill.Legislation.DocumentUrl}}" target="_blank">View/Download in New Tab</a>
+            <object data={{legShow.bill.Legislation.DocumentUrl}} width="100%" height="800px"></object>
+            <a class="btn btn-danger" ng-href="http://lims.dccouncil.us/Legislation/{{legShow.bill.Legislation.LegislationNumber}}" target="_blank">View on Council Website</a>
+          </div>
+        </div>
+      </uib-tab>
+      <uib-tab ng-if="legShow.bill.Hearing[0]" heading="Committee Hearing">
+        <div class="show-tabs-section bill-hearing-info">
+          <h4>Hearings on This Bill: {{legShow.bill.Hearing.length}}</h4>
+          <div ng-repeat="hearing in legShow.bill.Hearing">
+            <p>Committee: {{legShow.bill.Legislation.CommitteeReferral}}</p>
+            <p>Hearing Date: {{hearing.HearingDate | date:"longDate"}}</p>
+            <p>Date Hearing Announced: {{hearing.HearingPubDate | date:"longDate"}}</p>
+            <iframe scrolling="no" style="border:0" width="350" height="460" id="GranicusFlashPlayerFrame" src="{{hearing.HearingDetails}}" autoplay="false"></iframe>
+            <object data={{hearing.DocumentUrl}} width="100%" height="800px"></object>
+          </div>
+        </div>
+      </uib-tab>
+      <uib-tab ng-if="legShow.bill.CommitteeMarkup[0]" heading="Committee Action">
+        <div class="show-tabs-section bill-cmte-action">
+          <div ng-repeat="markup in legShow.bill.CommitteeMarkup">
+            <p>Committee: {{legShow.bill.Legislation.CommitteeReferral}}</p>
+            <p>Markup Date: {{markup.ActionDate | date:"longDate"}}</p>
+            <h4>Vote Results</h4>
+            <div ng-repeat="type in markup.VoteResult">
+              <div class="vote-type" ng-if="type.VoteType == 'Yes' || type.VoteType == 'No' || type.VoteCount != 0">{{type.VoteType}}: {{type.VoteCount}}</div>
+            </div>
+            <iframe scrolling="no" style="border:0" width="350" height="460" id="GranicusFlashPlayerFrame" src={{markup.VideoLink}}></iframe>
+            <p>Report Date: {{markup.ReportDate | date:"longDate"}}</p>
+            <object data={{markup.DocumentUrl}} width="100%" height="800px"></object>
+          </div>
+        </div>
+      </uib-tab>
+      <uib-tab ng-if="legShow.bill.VotingSummary" heading="Votes">
+        <div class="show-tabs-section bill-votes">
+          <h4>Votes on This Bill: {{legShow.bill.VotingSummary.length}}</h4>
+          <div ng-repeat="vote in legShow.bill.VotingSummary">
+            <div class="council-vote-detail">
+              <h5>Vote Date: {{vote.DateOfVote | date:"longDate"}}</h5>
+              <h5>Vote Description: {{vote.ReadingDescription}}</h5>
+              <h5>Vote Result: {{vote.VoteResult}}</h5>
+              <span ng-repeat="member in vote.MemberVotes">
+                {{member.MemberName}}: {{member.Result}}
+                <span ng-if="!$last">| </span>
+              </span>
+              <iframe scrolling="no" style="border:0" width="100%" height="700" id="GranicusFlashPlayerFrame" src={{vote.VideoLink}}></iframe>
+            </div>
+          </div>
+        </div> <!-- close tab-section -->
+      </uib-tab>
+      <uib-tab ng-if="legShow.bill.MayorReview[0]" heading="Mayor/Congress Review">
+        <span ng-if="legShow.bill.MayorReview[0].SignedDate">
+          <p>Date Signed by Mayor: {{legShow.bill.MayorReview[0].EnactedDate | date:"longDate"}}</p>
+          <p>Act Number: {{legShow.bill.Legislation.ActNumber}}</p>
+          <p ng-if="legShow.bill.Legislation.LawNumber">Law Number: {{legShow.bill.Legislation.LawNumber}}</p>
+          <p ng-if="legShow.bill.CongressReview[0].LawEffectiveDate">Date in Effect: {{legShow.bill.CongressReview[0].LawEffectiveDate}}
+          <!-- <p><a class="btn btn-danger" ng-href='http://www.dcregs.dc.gov/Gateway/NoticeHome.aspx?NoticeID=5542209' target="_blank">View Official Notice of Enactment</a></p> -->
+          <div>
+            <h5>Signed Legislation</h5>
+            <object type="application/pdf" data={{legShow.bill.MayorReview[0].DocumentUrl}} width="100%" height="800px"></object>
+          </div>
+        </span>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+
+
+</div>
