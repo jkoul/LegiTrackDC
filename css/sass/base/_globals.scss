@@ -10,7 +10,8 @@ body{
   min-height:100vh;
   width: 100%;
   margin: 0 auto;
-  background-color: $colorSecondary;
+  background-image: url('/css/images/2000px-Flag_of_Washington,_D.C._icon.svg.png');
+  background-size: contain;
   text-align: center;
   font-family: $sans;
   font-size: $base-font-size+6;
