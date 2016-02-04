@@ -1,12 +1,49 @@
 .page-legislation {
-
   background-color: $colorSecondary;
-  
-  .filters {
+
+  .leg-sort-pane {
     width: 100%;
+
+    .filters {
+      width: 100%;
+      display: none;
+    }
   }
 
+
   .bills-container {
+    width: 100%;
+    display: none;
+  }
+
+  @include breakpoint($medium-xl) {
+
+    .leg-sort-pane {
+      background-color: $colorSecondary;
+      margin-right: 1%;
+      width: 40%;
+      float: left;
+
+      .filters-toggle-button, .browse-button, .filter-mobile-button {
+        display: none;
+      }
+
+      &:hover {
+        // position: relative;
+      }
+
+      .filters {
+        display: block;
+      }
+    }
+
+    .bills-container {
+      background-color: $colorSecondary;
+      margin-left: 1%;
+      width: 58%;
+      display: block;
+      float: right;
+    }
 
   }
 }

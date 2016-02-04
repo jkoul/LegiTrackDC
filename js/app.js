@@ -44,4 +44,4 @@
       controllerAs: 'legShow'
     })
   }
-})()
+})();

@@ -1,35 +1,42 @@
-.search-form {
-  display: inline-block;
-  vertical-align: middle;
-  .search {
-    font-size: 1.5em;
-    color: darken($colorPrimary, 10%) !important;
-    padding-left: 5px;
-    border: 1px solid $colorPrimary;
-    text-align: center;
+.search-container {
+
+  h5 {
+    margin-top: 0;
   }
-  .search-button {
-    display: inline-block;
-    vertical-align: middle;
-    width: auto;
+  .search-form {
+    padding: 10px 5% 0 5%;
 
-    button {
+    .search {
+      width: 100%;
       font-size: 1.5em;
-      height: 1.8em;
-      background: $colorSecondary;
+      color: darken($colorPrimary, 10%) !important;
+      padding-left: 5px;
+      border: 1px solid $colorPrimary;
+      text-align: center;
+    }
+    .search-button {
+      display: inline-block;
+      vertical-align: middle;
+      width: auto;
 
-      &:hover {
-        background: $gray-4;
-      }
-      &:focus {
-        outline: 0;
-      }
-
-      i {
-        color: $colorPrimary;
+      button {
+        font-size: 1.5em;
+        height: 1.8em;
+        background: $colorSecondary;
 
         &:hover {
-          color: darken($colorPrimary, 15%);
+          background: $gray-4;
+        }
+        &:focus {
+          outline: 0;
+        }
+
+        i {
+          color: $colorPrimary;
+
+          &:hover {
+            color: darken($colorPrimary, 15%);
+          }
         }
       }
     }
