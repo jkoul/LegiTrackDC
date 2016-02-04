@@ -1,52 +1,58 @@
 <div class="page-legislation">
-  <div class="search-container">
-    <script type="text/ng-template" id="customTemplate.html">
-      <a>
-          <span>{{match.model.$id}} - {{match.model.Legislation.ShortTitle}}</span>
-      </a>
-    </script>
-    <form name="bill-num" class="search-form" novalidate>
-      <input ng-if="!legIndex.legOpen" type="search" class="search search-billnum" placeholder="Quick Search" ng-model="search.bill" uib-typeahead="leg.$id for leg in legIndex.all | filter:$viewValue | limitTo:10" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" typeahead-on-select="legIndex.searchResult($item)">
-      <input ng-if="legIndex.legOpen" type="text" class="search" placeholder="Search Legislation" ng-model="legIndex.query">
-      <div class="no-results" ng-show="noResults">
-        <i class="glyphicon glyphicon-remove"></i> No Results Found
-      </div>
-    </form>
-    <h5>Enter a Keyword or Bill Number</h5>
-  </div>
-  <div ng-show="!(legIndex.filtersOpen || legIndex.legOpen)">
-    <button type="button" class="btn btn-block btn-primary btn-lg" ng-click="legIndex.toggleFilters()">
-      <span>Advanced Search</span>
-    </button>
-    <h5>Choose one or more categories by Legislation Type, Status, Committee or Sponsor/Co-Sponsor.</h5>
-  </div>
-  <div>
-    <button ng-show="!legIndex.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="legIndex.toggleLeg()">
-      <span ng-if="!legIndex.legOpen">Browse Legislation</span>
-      <span ng-if="legIndex.legOpen">Back To Main Menu</span>
-    </button>
-    <button ng-show="legIndex.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="legIndex.toggleFilters()">
-      Back to Main Menu
-    </button>
-  </div>
-  <div class="simple-filters-container" ng-show="!legIndex.filtersOpen">
-    <h3>View by Category:</h3>
-    <div class="simple-filters">
-      <div class="filter-dropdowns" ng-repeat="filter in legIndex.filterFields">
-        <div class="btn-group" uib-dropdown dropdown-append-to-body uib-keyboard-nav>
-          <button type="button" class="btn btn-default" uib-dropdown-toggle>
-            {{filter.name}} <span class="caret"></span>
-          </button>
-          <ul uib-dropdown-menu role="menu">
-            <div ng-repeat="item in filter.values">
-              <li role="menuitem"><a href="#" ng-click="legIndex.setCategory(filter, item)">{{item.name}}</a></li>
-            </div>
-          </ul>
+  <div class="leg-sort-pane">
+    <div class="search-container">
+      <script type="text/ng-template" id="customTemplate.html">
+        <a>
+            <span>{{match.model.$id}} - {{match.model.Legislation.ShortTitle}}</span>
+        </a>
+      </script>
+      <form name="bill-num" class="search-form" novalidate>
+        <input ng-if="!legIndex.legOpen" type="search" class="search search-billnum" placeholder="Quick Search" ng-model="search.bill" uib-typeahead="leg.$id for leg in legIndex.all | filter:$viewValue | limitTo:10" typeahead-template-url="customTemplate.html" typeahead-no-results="noResults" typeahead-on-select="legIndex.searchResult($item)">
+        <input ng-if="legIndex.legOpen" type="text" class="search" placeholder="Search Legislation" ng-model="legIndex.query">
+        <div class="no-results" ng-show="noResults">
+          <i class="glyphicon glyphicon-remove"></i> No Results Found
+        </div>
+      </form>
+      <h5>Enter a Keyword or Bill Number</h5>
+    </div>
+    <div ng-show="!(legIndex.filtersOpen || legIndex.legOpen)">
+      <button type="button" class="btn btn-block btn-primary btn-lg" ng-click="legIndex.toggleFilters()">
+        <span>Advanced Search</span>
+      </button>
+      <h5>Choose one or more categories by Legislation Type, Status, Committee or Sponsor/Co-Sponsor.</h5>
+    </div>
+
+    <leg-filters></leg-filters>
+
+    <div>
+      <button ng-show="!legIndex.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="legIndex.toggleLeg()">
+        <span ng-if="!legIndex.legOpen">Browse Legislation</span>
+        <span ng-if="legIndex.legOpen">Back To Main Menu</span>
+      </button>
+      <button ng-show="legIndex.filtersOpen" type="button" class="btn btn-block btn-danger btn-lg" ng-click="legIndex.toggleFilters()">
+        Back to Main Menu
+      </button>
+    </div>
+    <div class="simple-filters-container" ng-show="!legIndex.filtersOpen">
+      <h3>View by Category:</h3>
+      <div class="simple-filters">
+        <div class="filter-dropdowns" ng-repeat="filter in legIndex.filterFields">
+          <div class="btn-group" uib-dropdown dropdown-append-to-body uib-keyboard-nav>
+            <button type="button" class="btn btn-default" uib-dropdown-toggle>
+              {{filter.name}} <span class="caret"></span>
+            </button>
+            <ul uib-dropdown-menu role="menu">
+              <div ng-if="filter.activeField != 3" ng-repeat="item in filter.values">
+                <li role="menuitem"><a href="#" ng-click="legIndex.setCategory(filter, item)">{{item.name}}</a></li>
+              </div>
+              <div ng-if="filter.activeField == 3" ng-repeat="item in filter.values[0]">
+                <li role="menuitem"><a href="#" ng-click="legIndex.setCategory(filter, item)">{{item.name}}</a></li>
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <leg-filters></leg-filters>
+  </div> <!--.leg-sort-pane-->
   <leg-container></leg-container>
 </div>

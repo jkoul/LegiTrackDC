@@ -1,10 +1,14 @@
 ***ToDo***
 
 <!-- - Create show page -->
-- Set up filters
-- About page
+<!-- - Set up filters -->
+<!-- - Deploy to production -->
+<!-- - Fix sponsors/cosponsors in quick sort dropdowns -->
 - Desktop view
-- Deploy to production
+- work in "other attachments" field to detail
+- About page
+- More status "detail" - show place in process
+  - integrate detailed status into filters
 - Get routes working properly (icebox for now)
 - Users (optional)
 - Finish update tool interface (optional)
@@ -12,4 +16,4 @@
 - CM Profiles (optional)
 - Past sessions (optional)
 - Firebase three-way binding for votes (optional)
-- work in "other attachments" field to detail
+- refine styling and positioning of votes in show page
