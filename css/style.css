@@ -924,23 +924,30 @@ h1, h2, h3, h4 {
   color: #9E091E;
   font-size: 40px;
   font-size: 4rem;
+  margin-top: 5px;
+  margin-top: 0.5rem;
+  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
   text-shadow: 2px 2px #000000;
 }
-/* line 20, sass/layout/_header-base.scss */
+/* line 22, sass/layout/_header-base.scss */
 .header .title h1 .fa-thumbs-up {
   color: green;
 }
-/* line 23, sass/layout/_header-base.scss */
+/* line 25, sass/layout/_header-base.scss */
 .header .title h1 .fa-thumbs-down {
   color: #9E091E;
 }
-/* line 27, sass/layout/_header-base.scss */
+/* line 29, sass/layout/_header-base.scss */
 .header .title h3 {
   font-family: "Tinos", serif;
   font-weight: 700;
   color: #9E091E;
   font-size: 20px;
   font-size: 2rem;
+  margin: 0;
+  margin-bottom: 5px;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
@@ -954,7 +961,7 @@ h1, h2, h3, h4 {
 /* line 1, sass/layout/_main-container.scss */
 .main-container {
   padding: 20px;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -1048,9 +1055,44 @@ h1, h2, h3, h4 {
 .page-legislation {
   background-color: #f6f6f6;
 }
-/* line 5, sass/pages/_page-legislation.scss */
-.page-legislation .filters {
+/* line 4, sass/pages/_page-legislation.scss */
+.page-legislation .leg-sort-pane {
   width: 100%;
+}
+/* line 7, sass/pages/_page-legislation.scss */
+.page-legislation .leg-sort-pane .filters {
+  width: 100%;
+  display: none;
+}
+/* line 14, sass/pages/_page-legislation.scss */
+.page-legislation .bills-container {
+  width: 100%;
+  display: none;
+}
+@media (min-width: 768px) {
+  /* line 21, sass/pages/_page-legislation.scss */
+  .page-legislation .leg-sort-pane {
+    background-color: #f6f6f6;
+    margin-right: 1%;
+    width: 40%;
+    float: left;
+  }
+  /* line 27, sass/pages/_page-legislation.scss */
+  .page-legislation .leg-sort-pane .filters-toggle-button, .page-legislation .leg-sort-pane .browse-button, .page-legislation .leg-sort-pane .filter-mobile-button {
+    display: none;
+  }
+  /* line 35, sass/pages/_page-legislation.scss */
+  .page-legislation .leg-sort-pane .filters {
+    display: block;
+  }
+  /* line 40, sass/pages/_page-legislation.scss */
+  .page-legislation .bills-container {
+    background-color: #f6f6f6;
+    margin-left: 1%;
+    width: 58%;
+    display: block;
+    float: right;
+  }
 }
 
 /* line 1, sass/components/_votes.scss */
@@ -1077,7 +1119,7 @@ h1, h2, h3, h4 {
   color: #9E091E;
   margin-right: 5px;
 }
-@media (min-width: 680px) and (max-width: 1099px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   /* line 1, sass/components/_votes.scss */
   .votes, .votes-show {
     font-size: 3em;
@@ -1096,14 +1138,14 @@ h1, h2, h3, h4 {
   font-size: 1.2em;
 }
 
-/* line 3, sass/components/_filters-container.scss */
+/* line 4, sass/components/_filters-container.scss */
 .filters .filter-groups {
   background: #f9f0e8;
   border: 1px solid #9E091E;
   margin-top: 20px;
   margin-top: 2rem;
 }
-/* line 8, sass/components/_filters-container.scss */
+/* line 9, sass/components/_filters-container.scss */
 .filters .filter-groups h2 {
   font-family: "Tinos", serif;
   font-weight: 700;
@@ -1112,7 +1154,7 @@ h1, h2, h3, h4 {
   font-size: 2.4rem;
   text-transform: uppercase;
 }
-/* line 13, sass/components/_filters-container.scss */
+/* line 14, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group {
   display: flex;
   flex-direction: column;
@@ -1121,7 +1163,7 @@ h1, h2, h3, h4 {
   padding: 1rem;
   align-items: center;
 }
-/* line 20, sass/components/_filters-container.scss */
+/* line 21, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group h3 {
   font-family: "Tinos", serif;
   font-weight: 700;
@@ -1129,52 +1171,52 @@ h1, h2, h3, h4 {
   font-size: 20px;
   font-size: 2rem;
 }
-/* line 24, sass/components/_filters-container.scss */
+/* line 25, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group h3, .filters .filter-groups .filter-group .show-hide {
   margin: 0 10px;
 }
-/* line 28, sass/components/_filters-container.scss */
+/* line 29, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group h5 {
   line-height: 15px;
   line-height: 1.5rem;
   margin-bottom: 10px;
   margin-bottom: 1rem;
 }
-/* line 33, sass/components/_filters-container.scss */
+/* line 34, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-items {
   padding-top: 5px;
   padding-bottom: 5px;
   text-align: left;
 }
-/* line 38, sass/components/_filters-container.scss */
+/* line 39, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-items .row {
   text-align: left;
   margin: 0 10px;
   overflow: auto;
 }
-/* line 45, sass/components/_filters-container.scss */
+/* line 46, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-sponsor-items {
   padding-left: 15px;
   padding-bottom: 20px;
   text-align: left;
 }
-/* line 50, sass/components/_filters-container.scss */
+/* line 51, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-sponsor-items .sponsor-filter, .filters .filter-groups .filter-group .filter-sponsor-items .cosponsor-filter {
   margin-left: 25px;
   width: 60px;
   float: left;
 }
-/* line 55, sass/components/_filters-container.scss */
+/* line 56, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-sponsor-items .sponsor-filter .sponsor-filter-name, .filters .filter-groups .filter-group .filter-sponsor-items .cosponsor-filter .sponsor-filter-name {
   text-align: left;
   margin-left: -15px;
 }
-/* line 59, sass/components/_filters-container.scss */
+/* line 60, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-sponsor-items .sponsor-filter .sponsor-filter-name h5, .filters .filter-groups .filter-group .filter-sponsor-items .cosponsor-filter .sponsor-filter-name h5 {
   width: 60px;
   display: inline-block;
 }
-/* line 66, sass/components/_filters-container.scss */
+/* line 67, sass/components/_filters-container.scss */
 .filters .filter-groups .filter-group .filter-sponsor-items .filter-names {
   float: left;
 }
@@ -1224,7 +1266,7 @@ h1, h2, h3, h4 {
   font-size: 15px;
   font-size: 1.5rem;
 }
-@media (min-width: 680px) and (max-width: 1099px) {
+@media (min-width: 768px) and (max-width: 1199px) {
   /* line 1, sass/components/_bills-container.scss */
   .bills-container {
     float: left;
@@ -1324,45 +1366,49 @@ h1, h2, h3, h4 {
   font-size: 2.5rem;
 }
 
-/* line 1, sass/components/_search-container.scss */
-.search-form {
-  display: inline-block;
-  vertical-align: middle;
+/* line 3, sass/components/_search-container.scss */
+.search-container h5 {
+  margin-top: 0;
 }
-/* line 4, sass/components/_search-container.scss */
-.search-form .search {
+/* line 6, sass/components/_search-container.scss */
+.search-container .search-form {
+  padding: 10px 5% 0 5%;
+}
+/* line 9, sass/components/_search-container.scss */
+.search-container .search-form .search {
+  width: 100%;
   font-size: 1.5em;
   color: #6e0615 !important;
   padding-left: 5px;
   border: 1px solid #9E091E;
   text-align: center;
 }
-/* line 11, sass/components/_search-container.scss */
-.search-form .search-button {
+/* line 17, sass/components/_search-container.scss */
+.search-container .search-form .search-button {
   display: inline-block;
   vertical-align: middle;
   width: auto;
 }
-/* line 16, sass/components/_search-container.scss */
-.search-form .search-button button {
+/* line 22, sass/components/_search-container.scss */
+.search-container .search-form .search-button button {
   font-size: 1.5em;
   height: 1.8em;
   background: #f6f6f6;
 }
-/* line 21, sass/components/_search-container.scss */
-.search-form .search-button button:hover {
+/* line 27, sass/components/_search-container.scss */
+.search-container .search-form .search-button button:hover {
   background: #CCCCCC;
 }
-/* line 24, sass/components/_search-container.scss */
-.search-form .search-button button:focus {
+/* line 30, sass/components/_search-container.scss */
+.search-container .search-form .search-button button:focus {
   outline: 0;
 }
-/* line 28, sass/components/_search-container.scss */
-.search-form .search-button button i {
+/* line 34, sass/components/_search-container.scss */
+.search-container .search-form .search-button button i {
   color: #9E091E;
 }
-/* line 31, sass/components/_search-container.scss */
-.search-form .search-button button i:hover {
+/* line 37, sass/components/_search-container.scss */
+.search-container .search-form .search-button button i:hover {
   color: #560510;
 }
 

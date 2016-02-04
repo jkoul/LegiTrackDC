@@ -20,12 +20,15 @@
     Filters
   ) {
     var self=this;
+    // setup vars
     this.filters = 0;
     this.filtersOpen = false;
     this.leg = 0;
     this.legOpen = false;
     this.activeFilters = Filters.active();
     this.filterFields = Filters.fields();
+
+
     this.all = CurrentLegislation.query()
     this.all.$loaded().then(function(data, $Vote){
       $('.load-note').hide();
@@ -84,21 +87,23 @@
     };
 
     this.toggleFilters = function(){
-      $('.filters').toggleClass('ng-hide');
       self.filters ++;
       if(self.filters % 2 == 1){
+        $('.filters').show();
         self.filtersOpen = true;
       } else {
+        $('.filters').hide();
         self.filtersOpen = false;
       }
     }
 
     this.toggleLeg = function(){
-      $('.bills-container').toggleClass('ng-hide');
       self.leg ++;
       if(self.leg % 2 == 1){
+        $('.bills-container').show();
         self.legOpen = true;
       } else {
+        $('.bills-container').hide();
         self.legOpen = false;
       }
     }

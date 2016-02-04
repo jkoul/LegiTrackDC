@@ -16,6 +16,8 @@
     align-items: center;
     h1 {
       @include font-weight-color-size($serif, $bold, $colorPrimary, 4.0);
+      @include rem-fallback('margin-top', 0.5);
+      @include rem-fallback('margin-bottom', 0.5);
       text-shadow: 2px 2px $black;
       .fa-thumbs-up {
         color: green;
@@ -26,6 +28,8 @@
     }
     h3 {
       @include font-weight-color-size($serif, $bold, $colorPrimary, 2);
+      margin: 0;
+      @include rem-fallback('margin-bottom', 0.5);
       text-transform: uppercase;
     }
   }
