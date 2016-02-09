@@ -115,7 +115,7 @@
 
     this.searchResult = function($item) {
       self.$item = $item;
-      $location.path('/#' + self.$item.$id);
+      $location.path('/' + self.$item.$id);
     }
 
     this.setCategory = function(filter, item) {
