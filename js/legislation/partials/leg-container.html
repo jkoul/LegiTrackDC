@@ -8,7 +8,7 @@
   <div class="legislation" ng-repeat="leg in activeBills = (legIndex.all | filter:legIndex.watchFilters | filter:legIndex.query | orderBy:'-Legislation.Modified')">
     <div class="leg-item bill">
       <div class="bill-heading">
-        <h3><a ng-href="/{{leg.Legislation.LegislationNumber}}">{{leg.Legislation.LegislationNumber}}: {{leg.Legislation.ShortTitle}}</a></h3>
+        <h3><a ui-sref="LegShow({id: leg.Legislation.LegislationNumber})">{{leg.Legislation.LegislationNumber}}: {{leg.Legislation.ShortTitle}}</a></h3>
       </div>
       <div class="bill-detail">
         <p>Type: {{leg.Legislation.Subcategory}}</p>
