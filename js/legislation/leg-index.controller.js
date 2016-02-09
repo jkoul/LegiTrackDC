@@ -4,7 +4,7 @@
   angular
   .module("legislation")
   .controller("legIndexController", [
-    '$location',
+    '$state',
     'CurrentLegislation',
     'LimsDetail',
     'Vote',
@@ -13,7 +13,7 @@
   ])
 
   function indexCtrlModels (
-    $location,
+    $state,
     CurrentLegislation,
     LimsDetail,
     Vote,
@@ -115,7 +115,7 @@
 
     this.searchResult = function($item) {
       self.$item = $item;
-      $location.path('/' + self.$item.$id);
+      $state.go("LegShow", {id: self.$item.$id});
     }
 
     this.setCategory = function(filter, item) {
